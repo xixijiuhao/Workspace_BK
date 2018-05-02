@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{6d256caf-5b8b-4cd5-9568-96a189d35b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ctrl">
+      <UniqueIdentifier>{010f8a57-ed77-449a-b1f9-99aa253066b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="LoadRC">
+      <UniqueIdentifier>{012ad308-b3a7-4387-88f3-e5d896d9cad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BaseFile">
+      <UniqueIdentifier>{bd4fe772-5f79-4aaa-8019-64f2c68d9654}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Authentication_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\BatchOrder_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\BatchOrder_Struct.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\CommonModule_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\CommonModule_Struct.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\ConfigFrame_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\CspAccess_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Dui_Basic.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Dui_Event.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Dui_Extend.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Dui_Include.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Dui_Type.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\HisQuoteShell_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\IndexOrder_Api.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\IQuickData.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\LanguageApi_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\Logging_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\LoginFrm_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\MainFrame_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\OptionCalc.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\OptionCalc_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PluginMgr_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\RawTradeApi_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\RawTradeApi_Struct.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\RemedyTrade_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\StarApi_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\StarApi_TYPE.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\StrategyTrade_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\TradeApi_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\TradeApi_Struct.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\TradeApi_Type.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\TradeReport_API.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadRC\AnsicUnicode.h">
+      <Filter>LoadRC</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadRC\IOperator.h">
+      <Filter>LoadRC</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadRC\TradeQuoteString.h">
+      <Filter>LoadRC</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadRC\Langeage.h">
+      <Filter>LoadRC</Filter>
+    </ClInclude>
+    <ClInclude Include="MAIN\CapitalRiskMgtWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MAIN\PreInclude.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Subset\common\language\load_rc.h">
+      <Filter>LoadRC</Filter>
+    </ClInclude>
+    <ClInclude Include="Subset\common\IxFrm.h">
+      <Filter>BaseFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Subset\common\UIDesign.h">
+      <Filter>BaseFile</Filter>
+    </ClInclude>
+    <ClInclude Include="MAIN\CapitalRiskMgt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\TCheckbox.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\TEdit.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\TStatic.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="Subset\common\TMemDC.h">
+      <Filter>BaseFile</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxCombox.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxSubClassWnd.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadRC\AnsicUnicode.cpp">
+      <Filter>LoadRC</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadRC\TradeQuoteString.cpp">
+      <Filter>LoadRC</Filter>
+    </ClCompile>
+    <ClCompile Include="MAIN\CapitalRiskMgtPlugin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MAIN\CapitalRiskMgtWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Subset\common\language\load_rc.cpp">
+      <Filter>LoadRC</Filter>
+    </ClCompile>
+    <ClCompile Include="Subset\common\IxFrm.cpp">
+      <Filter>BaseFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Subset\common\UIDesign.cpp">
+      <Filter>BaseFile</Filter>
+    </ClCompile>
+    <ClCompile Include="MAIN\CapitalRiskMgt.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MAIN\dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\TCheckbox.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\TEdit.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\TStatic.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="Subset\common\TMemDC.cpp">
+      <Filter>BaseFile</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxCombox.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxSubClassWnd.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CapitalRiskMgt.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAIN\CapitalRiskMgt.def">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
+</Project>

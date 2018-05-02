@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DECC20AB-4877-4336-BC25-94E190362084}</ProjectGuid>
+    <RootNamespace>MVPDemo</RootNamespace>
+    <ProjectName>TKeyOrder</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>../View/TradeInfo;../Popup;../ThreeKeyConfig;../BaseFile/QueueAPI;../Presenter;../View;../Model;../AppFramework;./;../BaseFile/Export;../BaseFile/LoadRC;../BaseFile/Control;../BaseFile/TradeSpi;../../Include;../BaseFile/Base;../BaseFile;$(IncludePath)</IncludePath>
+    <OutDir>..\..\Debug\plugins\TKeyOrder</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>../View/TradeInfo;$(VC_IncludePath);$(WindowsSDK_IncludePath);../Popup;../ThreeKeyConfig;../BaseFile/QueueAPI;../Presenter;../View;../Model;../AppFramework;./;../BaseFile/Export;../BaseFile/LoadRC;../BaseFile/Control;../BaseFile/TradeSpi;../../Include;../BaseFile/Base;../BaseFile;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Include\CommonModule_API.h" />
+    <ClInclude Include="..\..\Include\CommonModule_Struct.h" />
+    <ClInclude Include="..\..\Include\ConfigFrame_API.h" />
+    <ClInclude Include="..\..\Include\HisQuoteApi_API.h" />
+    <ClInclude Include="..\..\Include\HisQuoteShell_API.h" />
+    <ClInclude Include="..\..\Include\LanguageApi_API.h" />
+    <ClInclude Include="..\..\Include\LocalSpread_API.h" />
+    <ClInclude Include="..\..\Include\LoginFrm_API.h" />
+    <ClInclude Include="..\..\Include\LogService_API.h" />
+    <ClInclude Include="..\..\Include\MainFrame_API.h" />
+    <ClInclude Include="..\..\Include\OptionCalc_API.h" />
+    <ClInclude Include="..\..\Include\PluginMgrMgr_API.h" />
+    <ClInclude Include="..\..\Include\PluginMgr_API.h" />
+    <ClInclude Include="..\..\Include\QuoteApi_API.h" />
+    <ClInclude Include="..\..\Include\RawQuoteApi_API.h" />
+    <ClInclude Include="..\..\Include\RawTradeApi_API.h" />
+    <ClInclude Include="..\..\Include\RawTradeApi_Struct.h" />
+    <ClInclude Include="..\..\Include\RemedyTrade_API.h" />
+    <ClInclude Include="..\..\Include\spread_struct - 副本.h" />
+    <ClInclude Include="..\..\Include\spread_struct.h" />
+    <ClInclude Include="..\..\Include\StopLossProfit_API.h" />
+    <ClInclude Include="..\..\Include\StopLossProfit_Struct.h" />
+    <ClInclude Include="..\..\Include\StopTrade_API.h" />
+    <ClInclude Include="..\..\Include\SysNotice_API.h" />
+    <ClInclude Include="..\..\Include\TradeApi_API.h" />
+    <ClInclude Include="..\..\Include\TradeApi_Struct.h" />
+    <ClInclude Include="..\..\Include\TradeApi_Type.h" />
+    <ClInclude Include="..\..\Include\TradeReport_API.h" />
+    <ClInclude Include="..\AppFramework\IAppFramework.h" />
+    <ClInclude Include="..\BaseFile\BaseInclude.h" />
+    <ClInclude Include="..\BaseFile\Base\AnsicUnicode.h" />
+    <ClInclude Include="..\BaseFile\Base\IxFrm.h" />
+    <ClInclude Include="..\BaseFile\Base\share_struct.h" />
+    <ClInclude Include="..\BaseFile\Base\TDataContainer.h" />
+    <ClInclude Include="..\BaseFile\Base\TMemDC.h" />
+    <ClInclude Include="..\BaseFile\Base\TMessageBox.h" />
+    <ClInclude Include="..\BaseFile\Base\TModalWnd.h" />
+    <ClInclude Include="..\BaseFile\Base\TPopupWnd.h" />
+    <ClInclude Include="..\BaseFile\Base\TradeQuoteString.h" />
+    <ClInclude Include="..\BaseFile\Base\TStringConvert.h" />
+    <ClInclude Include="..\BaseFile\Base\UIDesign.h" />
+    <ClInclude Include="..\BaseFile\Control\CtlDefine.h" />
+    <ClInclude Include="..\BaseFile\Control\CxCheck.h" />
+    <ClInclude Include="..\BaseFile\Control\CxCombox.h" />
+    <ClInclude Include="..\BaseFile\Control\CxEdit.h" />
+    <ClInclude Include="..\BaseFile\Control\CxSpin.h" />
+    <ClInclude Include="..\BaseFile\Control\CxSpinEdit.h" />
+    <ClInclude Include="..\BaseFile\Control\CxSubClassWnd.h" />
+    <ClInclude Include="..\BaseFile\Control\TComboxList.h" />
+    <ClInclude Include="..\BaseFile\Control\TDateTime.h" />
+    <ClInclude Include="..\BaseFile\Control\TListView.h" />
+    <ClInclude Include="..\BaseFile\Control\TLockCheck.h" />
+    <ClInclude Include="..\BaseFile\Control\TOrderButton.h" />
+    <ClInclude Include="..\BaseFile\Control\TRichEdit.h" />
+    <ClInclude Include="..\BaseFile\Control\TStatic.h" />
+    <ClInclude Include="..\BaseFile\Control\TStaticButton.h" />
+    <ClInclude Include="..\BaseFile\Control\TTabControl.h" />
+    <ClInclude Include="..\BaseFile\Control\TTreeView.h" />
+    <ClInclude Include="..\BaseFile\Export\Export.h" />
+    <ClInclude Include="..\BaseFile\Export\GlobalData.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\CharCodes.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\def_lang.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\load_rc.h" />
+    <ClInclude Include="..\BaseFile\Tradespi\trade_spi.h" />
+    <ClInclude Include="..\BaseFile\Tradespi\trade_spi_ex.h" />
+    <ClInclude Include="..\BaseFile\Tradespi\trade_spi_switch.h" />
+    <ClInclude Include="..\BaseFile\Tradespi\_trade_spi_switch.h" />
+    <ClInclude Include="..\Model\Model.h" />
+    <ClInclude Include="..\Model\TAddModStopLPData.h" />
+    <ClInclude Include="..\Model\TConOrderModel.h" />
+    <ClInclude Include="..\Model\TradeInfoModel.h" />
+    <ClInclude Include="..\Model\TStopLP.h" />
+    <ClInclude Include="..\Model\TStopLPEx.h" />
+    <ClInclude Include="..\Model\TThreeKeyData.h" />
+    <ClInclude Include="..\Model\TUserData.h" />
+    <ClInclude Include="..\Popup\popwin.h" />
+    <ClInclude Include="..\Popup\popwincode.h" />
+    <ClInclude Include="..\Popup\popwincodelist.h" />
+    <ClInclude Include="..\Popup\VirtualWnd.h" />
+    <ClInclude Include="..\Presenter\Mediator.h" />
+    <ClInclude Include="..\Presenter\Presenter.h" />
+    <ClInclude Include="..\ThreeKeyConfig\ChasePriceConfig.h" />
+    <ClInclude Include="..\ThreeKeyConfig\ConfigFrms.h" />
+    <ClInclude Include="..\ThreeKeyConfig\DefaultQtyConfig.h" />
+    <ClInclude Include="..\ThreeKeyConfig\OptionConfigFrm.h" />
+    <ClInclude Include="..\ThreeKeyConfig\StopLossParamFrm.h" />
+    <ClInclude Include="..\ThreeKeyConfig\SuperPriceConfig.h" />
+    <ClInclude Include="..\ThreeKeyConfig\ThreeKeyConfig_Struct.h" />
+    <ClInclude Include="..\View\TConditionOrderFrm.h" />
+    <ClInclude Include="..\View\TLogView.h" />
+    <ClInclude Include="..\View\TOpenStopFrm.h" />
+    <ClInclude Include="..\View\TOrderView.h" />
+    <ClInclude Include="..\View\TShiftPosition.h" />
+    <ClInclude Include="..\View\TSpecialPrice.h" />
+    <ClInclude Include="..\View\TStatusBar.h" />
+    <ClInclude Include="..\View\TStopLPView.h" />
+    <ClInclude Include="..\View\TTradeInfo.h" />
+    <ClInclude Include="..\View\ViewThreeKey.h" />
+    <ClInclude Include="PreInclude.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="TConfigFrm.h" />
+    <ClInclude Include="TKeyOrderApi.h" />
+    <ClInclude Include="TModifyConView.h" />
+    <ClInclude Include="TradeAction.h" />
+    <ClInclude Include="TWriteInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BaseFile\Base\AnsicUnicode.cpp" />
+    <ClCompile Include="..\BaseFile\Base\IxFrm.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TDataContainer.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TMemDC.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TMessageBox.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TModalWnd.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TPopupWnd.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TradeQuoteString.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TStringConvert.cpp" />
+    <ClCompile Include="..\BaseFile\Base\UIDesign.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxCheck.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxCombox.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxEdit.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSpin.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSpinEdit.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSubClassWnd.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TComboxList.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TDateTime.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TListView.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TLockCheck.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TOrderButton.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TRichEdit.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TStatic.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TStaticButton.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TTabControl.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TTreeView.cpp" />
+    <ClCompile Include="..\BaseFile\Export\Export.cpp" />
+    <ClCompile Include="..\BaseFile\Export\GlobalData.cpp" />
+    <ClCompile Include="..\BaseFile\LoadRC\load_rc.cpp" />
+    <ClCompile Include="..\BaseFile\Tradespi\trade_spi_ex.cpp" />
+    <ClCompile Include="..\Model\Model.cpp" />
+    <ClCompile Include="..\Model\TAddModStopLPData.cpp" />
+    <ClCompile Include="..\Model\TConOrderModel.cpp" />
+    <ClCompile Include="..\Model\TradeInfoModel.cpp" />
+    <ClCompile Include="..\Model\TStopLP.cpp" />
+    <ClCompile Include="..\Model\TThreeKeyData.cpp" />
+    <ClCompile Include="..\Model\TUserData.cpp" />
+    <ClCompile Include="..\Popup\popwin.cpp" />
+    <ClCompile Include="..\Popup\popwincode.cpp" />
+    <ClCompile Include="..\Popup\popwincodelist.cpp" />
+    <ClCompile Include="..\Popup\VirtualWnd.cpp" />
+    <ClCompile Include="..\Presenter\Mediator.cpp" />
+    <ClCompile Include="..\Presenter\Presenter.cpp" />
+    <ClCompile Include="..\ThreeKeyConfig\ChasePriceConfig.cpp" />
+    <ClCompile Include="..\ThreeKeyConfig\DefaultQtyConfig.cpp" />
+    <ClCompile Include="..\ThreeKeyConfig\OptionConfigFrm.cpp" />
+    <ClCompile Include="..\ThreeKeyConfig\StopLossParamFrm.cpp" />
+    <ClCompile Include="..\ThreeKeyConfig\SuperPriceConfig.cpp" />
+    <ClCompile Include="..\View\TConditionOrderFrm.cpp" />
+    <ClCompile Include="..\View\TLogView.cpp" />
+    <ClCompile Include="..\View\TOpenStopFrm.cpp" />
+    <ClCompile Include="..\View\TOrderView.cpp" />
+    <ClCompile Include="..\View\TShiftPosition.cpp" />
+    <ClCompile Include="..\View\TSpecialPrice.cpp" />
+    <ClCompile Include="..\View\TStatusBar.cpp" />
+    <ClCompile Include="..\View\TStopLPView.cpp" />
+    <ClCompile Include="..\View\TTradeInfo.cpp" />
+    <ClCompile Include="..\View\ViewThreeKey.cpp" />
+    <ClCompile Include="TConfigFrm.cpp" />
+    <ClCompile Include="TKeyOrderApi.cpp" />
+    <ClCompile Include="TModifyConView.cpp" />
+    <ClCompile Include="TradeAction.cpp" />
+    <ClCompile Include="TWriteInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TKeyOrder.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Res\dislinked.ico" />
+    <Image Include="..\Res\linked.ico" />
+    <Image Include="..\Res\locked.ico" />
+    <Image Include="F:\epolestar24\TKeyOrder Old\Res\dislinked.ico" />
+    <Image Include="F:\epolestar24\TKeyOrder Old\Res\linked.ico" />
+    <Image Include="F:\epolestar24\TKeyOrder Old\Res\locked.ico" />
+    <Image Include="F:\epolestar24\TKeyOrder Old\Res\unlock.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

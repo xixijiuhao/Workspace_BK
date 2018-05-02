@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9BBC2F6-1871-4AAA-882A-C5D1F159A42F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TemplateProj</RootNamespace>
+    <ProjectName>UserGuide</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../BaseFile;../BaseFile/Export;../BaseFile/TradeSpi;../BaseFile/LoadRC;../Popup;../BaseFile/Control;../BaseFile/Base;../../Include;./;$(IncludePath)</IncludePath>
+    <OutDir>..\..\Debug\plugins\UserGuide</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>../Popup;../BaseFile;../BaseFile/TradeSpi;../BaseFile/Export;../BaseFile/LoadRC;../BaseFile/Control;../BaseFile/Base;../../Include;./;$(IncludePath)</IncludePath>
+    <TargetName>UserGuide</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;TEMPLATEPROJ_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit - %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;TEMPLATEPROJ_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BaseFile\Base\IxFrm.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TDataContainer.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TMemDC.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TMessageBox.cpp" />
+    <ClCompile Include="..\BaseFile\Base\TModalWnd.cpp" />
+    <ClCompile Include="..\BaseFile\Base\UIDesign.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxCheck.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxCombox.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxEdit.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSpin.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSpinEdit.cpp" />
+    <ClCompile Include="..\BaseFile\Control\CxSubClassWnd.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TListView.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TLockCheck.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TStatic.cpp" />
+    <ClCompile Include="..\BaseFile\Control\TStaticButton.cpp" />
+    <ClCompile Include="..\BaseFile\Export\Export.cpp" />
+    <ClCompile Include="..\BaseFile\Export\GlobalData.cpp" />
+    <ClCompile Include="..\BaseFile\LoadRC\load_rc.cpp" />
+    <ClCompile Include="TUserGuide.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\BaseFile\BaseInclude.h" />
+    <ClInclude Include="..\BaseFile\Base\IxFrm.h" />
+    <ClInclude Include="..\BaseFile\Base\TDataContainer.h" />
+    <ClInclude Include="..\BaseFile\Base\TMemDC.h" />
+    <ClInclude Include="..\BaseFile\Base\TMessageBox.h" />
+    <ClInclude Include="..\BaseFile\Base\TModalWnd.h" />
+    <ClInclude Include="..\BaseFile\Base\UIDesign.h" />
+    <ClInclude Include="..\BaseFile\Control\CtlDefine.h" />
+    <ClInclude Include="..\BaseFile\Control\CxCheck.h" />
+    <ClInclude Include="..\BaseFile\Control\CxCombox.h" />
+    <ClInclude Include="..\BaseFile\Control\CxEdit.h" />
+    <ClInclude Include="..\BaseFile\Control\CxSpinEdit.h" />
+    <ClInclude Include="..\BaseFile\Control\CxSubClassWnd.h" />
+    <ClInclude Include="..\BaseFile\Control\TListView.h" />
+    <ClInclude Include="..\BaseFile\Control\TLockCheck.h" />
+    <ClInclude Include="..\BaseFile\Control\TStatic.h" />
+    <ClInclude Include="..\BaseFile\Control\TStaticButton.h" />
+    <ClInclude Include="..\BaseFile\Export\Export.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\CharCodes.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\def_lang.h" />
+    <ClInclude Include="..\BaseFile\LoadRC\load_rc.h" />
+    <ClInclude Include="IPointOrderAPI.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="TKeyOrderApi.h" />
+    <ClInclude Include="TUserGudie.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UserGuide.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

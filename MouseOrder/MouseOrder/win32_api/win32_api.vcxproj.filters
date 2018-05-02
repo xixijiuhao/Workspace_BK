@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{67538cfd-17e5-4c0d-9551-cd2a0dce0c15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="popwin">
+      <UniqueIdentifier>{14eca236-0872-4439-9876-1e3252938631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="button">
+      <UniqueIdentifier>{95cfc8b3-98a8-4021-a84f-5d9ec7b37f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{826b6f60-1579-4347-b776-f5c1d1a47617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{1c8171aa-398f-4ae6-adff-88e039e554a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Head">
+      <UniqueIdentifier>{a246bfa6-bd6c-45f6-98de-6f2e573701d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="orderbtn">
+      <UniqueIdentifier>{93157360-d9f6-47d5-8bc4-79934e10bd7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="orderlist">
+      <UniqueIdentifier>{57238c3b-7d7e-403e-9d44-27ae87271a20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="orderoption">
+      <UniqueIdentifier>{f62bfde8-1ebc-4591-a22b-e11f933fb845}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="popwincodelist.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="popwinprice.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="popwinqty.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseOrderString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EsUpdate\Include\MainFrame_API.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EsUpdate\Include\PluginMgr_API.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\language\load_rc.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\IxFrm.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\UIDesign.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\trade_spi_ex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\trade_spi_switch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EsUpdate\Include\CommonModule_API.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EsUpdate\Include\CommonModule_Struct.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="LockBtn.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="MousePriceEdit.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseComboBox.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseComboEdit.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseStatic.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="PreInclude.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxDrawButton.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxEdit.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxSpin.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxSubButton.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxSubClassWnd.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxCheck.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxCombox.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="share\AnsicUnicode.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="share\TradeQuoteString.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="share\popwindate.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="share\popwincode.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="share\IOperator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="mousewin.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="share\MouseHead.h">
+      <Filter>Head</Filter>
+    </ClInclude>
+    <ClInclude Include="share\popwintip.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="share\popwinlist.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse_type.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Language.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxEditEx.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxStaticEx.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxStatic.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderButton.h">
+      <Filter>orderbtn</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderList.h">
+      <Filter>orderlist</Filter>
+    </ClInclude>
+    <ClInclude Include="MousePosStatic.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="share\popwinsearch.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionStrategy.h">
+      <Filter>orderoption</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxComboxEx.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="ctl\CxComboxTime.h">
+      <Filter>button</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFrame.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseFrm.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="share\MouseOrderPop.h">
+      <Filter>popwin</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseOrderConfigWnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mousewin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseOrder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="popwincodelist.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="popwinqty.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="popwinprice.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\language\load_rc.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\IxFrm.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseOrderString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\UIDesign.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\trade_spi_ex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LockBtn.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="MousePriceEdit.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseComboBox.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseComboEdit.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseStatic.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxEdit.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxSpin.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxSubButton.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxSubClassWnd.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxCheck.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxCombox.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxDrawButton.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="share\AnsicUnicode.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="share\TradeQuoteString.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="share\popwindate.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="share\popwincode.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="share\MouseHead.cpp">
+      <Filter>Head</Filter>
+    </ClCompile>
+    <ClCompile Include="share\popwintip.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="share\popwinlist.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxEditEx.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxStaticEx.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxStatic.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderButton.cpp">
+      <Filter>orderbtn</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderList.cpp">
+      <Filter>orderlist</Filter>
+    </ClCompile>
+    <ClCompile Include="MousePosStatic.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="share\popwinsearch.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionStrategy.cpp">
+      <Filter>orderoption</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxComboxEx.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxComboxTime.cpp">
+      <Filter>button</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseFrm.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseFrame.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="share\MouseOrderPop.cpp">
+      <Filter>popwin</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseOrderConfigWnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\LockBtn.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\SyncBtn.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\SearchBtn.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MouseOrder.def">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MouseOrderCHS.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
