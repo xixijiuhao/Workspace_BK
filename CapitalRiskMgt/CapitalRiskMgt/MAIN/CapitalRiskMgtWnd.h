@@ -1,5 +1,6 @@
 #pragma once
 
+#define SSWM_EDIT_PRESS_ENTER				WM_USER + 3
 #define SSWM_STATIC_BUTTON_CLICKDOWN		WM_USER + 10
 #define SSWM_TAB_SWITCH_FOCUS				WM_USER + 11
 #define SSWM_COMBOX_SELECT					WM_USER + 12
@@ -11,6 +12,7 @@
 
 #define AUTHENT_KEY             "123456"
 #define AUTHENT_COMPANY         "EPOLESTAR"
+#define PLUGIN_NAME				"CapitalRiskMgt"
 
 enum ControlID
 {
@@ -88,13 +90,18 @@ private:
 	void SaveConfig();
 	void LoadConfig();
 	bool CheckDoubleInvildData(char *dText, int nPrecision);
+	void EnableControls();
 
 	void CreateSetUserCfgInfoWnd();
 	void ChangeFrmWithGroup(ConfigData &cfgData);
 	void CreateRiskConfigWnd();
 	void GetGroupConfigFormAPI();
+	void GetUserInfoFormAPI();
 	void SetMainUserNOToAPI();
+	void SetUserComboxValue();
 
+	void QryUserInfo();
+	void QryConfigInfo();
 	void DealComboxBackMoney();
 	void DealEditBackPrecent();
 	void DealComboxBackStandard();
@@ -104,12 +111,12 @@ private:
 
 	TStatic		m_LableBackStandard;
 	CxCombox    m_ComboxBackStandard;
-	TEdit		m_EditBackStandardLocal;
+	CxEdit		m_EditBackStandardLocal;
 
 	TStatic		m_LableBackMoney;
 	CxCombox    m_ComboxBackMoney;
-	TEdit		m_EditBackPrecent;
-	TEdit		m_EditBackLocal;
+	CxEdit		m_EditBackPrecent;
+	CxEdit		m_EditBackLocal;
 
 	TCheckBox   m_CheckboxWarning;
 	TCheckBox   m_CheckboxForbid;
@@ -121,21 +128,21 @@ private:
 	CxCombox		m_ComboxCurUser;
 	HWND			m_hGroupbox;
 
-	bool m_isFirst1;
-	bool m_isFirst2;
-	
 public:
 	ConfigData m_cfgData;
 
 	map<string, ConfigData> m_UserNoAndCfgDataMap; //自己用的数据结构，与服务器保持一致
 	map<string, vector<ConfigGroupRsp>> m_GroupInfoCompareMap;  //与服务器的数据交互，始终和服务器保持一致
+	map<string, UserPluginRsp> m_UserNoAndUserInfoMap; //自己用的数据结构，与服务器保持一致
 	map<string, int> m_GroupNoAndIndexCnt;
 
 	string m_CurUserNO;
 	int m_nInitGroupCfgCnt;
+	int m_nUserCfgCnt;
 	string			m_MainGroupUserCfg;
 	string			m_sCurUserInGroupNO;	//风控分组
 	bool			m_bCurUserCanModify;   //风控分组是否有修改权限
 	ConfigGroupRsp *m_ConfigGroupData_API;
+	UserPluginRsp *m_UserPluginData_API;
 
 };

@@ -183,6 +183,7 @@
     <ClInclude Include="..\..\Include\TradeApi_Type.h" />
     <ClInclude Include="..\..\Include\TradeReport_API.h" />
     <ClInclude Include="ctl\CxCombox.h" />
+    <ClInclude Include="ctl\CxEdit.h" />
     <ClInclude Include="ctl\CxSubClassWnd.h" />
     <ClInclude Include="ctl\TCheckbox.h" />
     <ClInclude Include="ctl\TEdit.h" />
@@ -204,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ctl\CxCombox.cpp" />
+    <ClCompile Include="ctl\CxEdit.cpp" />
     <ClCompile Include="ctl\CxSubClassWnd.cpp" />
     <ClCompile Include="ctl\TCheckbox.cpp" />
     <ClCompile Include="ctl\TEdit.cpp" />

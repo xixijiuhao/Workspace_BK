@@ -42,7 +42,7 @@
 #include "IxFrm.h"
 #include "TMemDC.h"
 #include "CxSubClassWnd.h"
-//#include "CxEdit.h"
+#include "CxEdit.h"
 //#include "CxButton.h"
 //#include "CxStatic.h"
 #include "CxCombox.h"

@@ -57,14 +57,31 @@ void CapitalRiskMgtWnd::OnMenuClick(const unsigned int MenuIndex, const HWND Pas
 
 CapitalRiskMgtWnd::CapitalRiskMgtWnd()
 {
-	//LoadConfig();
-
 	m_nInitGroupCfgCnt = 0;
 	m_ConfigGroupData_API = nullptr;
 	QryConfigFinish();
 }
 
 void CapitalRiskMgtWnd::QryConfigFinish()
+{
+	QryUserInfo();
+	QryConfigInfo();
+}
+
+void CapitalRiskMgtWnd::QryUserInfo()
+{
+	m_nUserCfgCnt = 0;
+	g_authent->GetPlugUser(m_nUserCfgCnt);
+	m_UserPluginData_API = new UserPluginRsp[m_nUserCfgCnt];
+	memset(m_UserPluginData_API, 0, m_nUserCfgCnt * sizeof(UserPluginRsp));
+	g_authent->GetPlugUser(m_nUserCfgCnt, m_UserPluginData_API);
+	if (m_nUserCfgCnt > 0)
+	{
+		GetUserInfoFormAPI();
+	}
+}
+
+void CapitalRiskMgtWnd::QryConfigInfo()
 {
 	m_nInitGroupCfgCnt = 0;
 	g_authent->GetGroupConfigInfo(m_nInitGroupCfgCnt);
@@ -76,20 +93,6 @@ void CapitalRiskMgtWnd::QryConfigFinish()
 	if (m_nInitGroupCfgCnt > 0)
 	{
 		GetGroupConfigFormAPI();
-		if (m_bCurUserCanModify)
-		{
-			auto iterFind = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
-			//TODO 存储当前用户的风控配置
-			if (iterFind != m_UserNoAndCfgDataMap.end())
-				m_cfgData = iterFind->second;
-		}
-		else
-		{
-			auto iterFind = m_UserNoAndCfgDataMap.find(m_sCurUserInGroupNO);
-			//TODO 存储当前用户的风控配置
-			if (iterFind != m_UserNoAndCfgDataMap.end())
-				m_cfgData = iterFind->second;
-		}
 	}
 }
 
@@ -129,8 +132,46 @@ LRESULT CapitalRiskMgtWnd::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CapitalRiskMgtWnd::OnCreate()
 {
+	auto iterFind = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
+	//TODO 存储当前用户的风控配置
+	if (iterFind != m_UserNoAndCfgDataMap.end())
+	{
+		m_cfgData = iterFind->second;
+	}
+
 	CreateRiskConfigWnd();
-	CreateSetUserCfgInfoWnd();
+	if (!m_bCurUserCanModify)
+	{
+		EnableControls();
+	}
+	else
+	{
+		CreateSetUserCfgInfoWnd();
+	}
+}
+
+void CapitalRiskMgtWnd::EnableControls()
+{
+	EnableWindow(m_ComboxBackStandard.GetHwnd(), false);
+	InvalidateRect(m_ComboxBackStandard.GetHwnd(), 0, true);
+
+	m_EditBackStandardLocal.EnableEdit(false);
+
+	EnableWindow(m_ComboxBackMoney.GetHwnd(), false);
+	InvalidateRect(m_ComboxBackMoney.GetHwnd(), 0, true);
+
+	m_EditBackPrecent.EnableEdit(false);
+
+	m_EditBackLocal.EnableEdit(false);
+
+	EnableWindow(m_CheckboxWarning.GetHwnd(), false);
+	InvalidateRect(m_CheckboxWarning.GetHwnd(), 0, true);
+
+	EnableWindow(m_CheckboxForbid.GetHwnd(), false);
+	InvalidateRect(m_CheckboxForbid.GetHwnd(), 0, true);
+
+	EnableWindow(m_ComboxCurUser.GetHwnd(), false);
+	InvalidateRect(m_ComboxCurUser.GetHwnd(), 0, true);
 }
 
 void CapitalRiskMgtWnd::CreateRiskConfigWnd()
@@ -162,20 +203,18 @@ void CapitalRiskMgtWnd::CreateRiskConfigWnd()
 	m_ComboxBackStandard.SetSelect(m_cfgData.m_nCancelStandardType);
 	m_ComboxBackStandard.SetFont(g_FontData.GetFontNum13());
 	m_ComboxBackStandard.MoveWindow(secondColRect.left, secondColRect.top, nComboxWidth, nUniformHeight * 3);
-	m_EditBackStandardLocal.Create(m_Hwnd);
+	m_EditBackStandardLocal.Create(m_Hwnd, 0, 0, ID_Edit_Back_Standard_Local);
 	m_EditBackStandardLocal.SetFont(g_FontData.GetFontNum13());
 	m_EditBackStandardLocal.MoveWindow(thirdColRect.left, thirdColRect.top, nEditWidth, nUniformHeight);
 	if (m_cfgData.m_nCancelStandardType == PreEquityEnum)
 	{
-		m_EditBackStandardLocal.SetDefText("");
+		m_EditBackStandardLocal.SetText("");
 		m_EditBackStandardLocal.EnableEdit(false);
 	}
 	else if (m_cfgData.m_nCancelStandardType == FixedMoneyEnum)
 	{
 		m_EditBackStandardLocal.EnableEdit(true);
-		GetPrivateProfileStringA(SECTION_CFG, FIXED_MONEY, "", strTemp, 10, cfg_file.c_str());
-		m_cfgData.m_nFixedMoney = atof(strTemp);
-		m_EditBackStandardLocal.SetDefText(strTemp);
+		m_EditBackStandardLocal.SetDoubleData(m_cfgData.m_nFixedMoney);
 	}
 
 	firstColRect.top += 35;
@@ -191,20 +230,16 @@ void CapitalRiskMgtWnd::CreateRiskConfigWnd()
 	m_ComboxBackMoney.SetSelect(m_cfgData.m_nCancelMoneyType);
 	m_ComboxBackMoney.SetFont(g_FontData.GetFontNum13());
 	m_ComboxBackMoney.MoveWindow(secondColRect.left, secondColRect.top, nComboxWidth, nUniformHeight * 3);
-	m_EditBackPrecent.Create(m_Hwnd);
+	m_EditBackPrecent.Create(m_Hwnd, 0, 0, ID_Edit_Back_Precent);
 	m_EditBackPrecent.SetFont(g_FontData.GetFontNum13());
 	m_EditBackPrecent.MoveWindow(thirdColRect.left, thirdColRect.top, nEditWidth, nUniformHeight);
 	if (m_cfgData.m_nCancelMoneyType == PercentageEnum)
 	{
-		GetPrivateProfileStringA(SECTION_CFG, PERCENTAGE, "", strTemp, 10, cfg_file.c_str());
-		m_cfgData.m_nPercentage = atof(strTemp);
-		m_EditBackPrecent.SetDefText(strTemp);
+		m_EditBackPrecent.SetDoubleData(m_cfgData.m_nPercentage);
 	}
 	else if (m_cfgData.m_nCancelMoneyType == FixedCancelEnum)
 	{
-		GetPrivateProfileStringA(SECTION_CFG, FIXED_CANCEL, "", strTemp, 10, cfg_file.c_str());
-		m_cfgData.m_nFixedCancelNum = atof(strTemp);
-		m_EditBackPrecent.SetDefText(strTemp);
+		m_EditBackPrecent.SetDoubleData(m_cfgData.m_nFixedCancelNum);
 	}
 
 	//告警
@@ -215,7 +250,7 @@ void CapitalRiskMgtWnd::CreateRiskConfigWnd()
 	m_CheckboxWarning.SetFont(g_FontData.GetFontNum13());
 	m_CheckboxWarning.SetBkColor(g_ColorRefData.g_ColorWhite);
 	m_CheckboxWarning.SetValue(m_cfgData.m_bIsWarningOn);
-	m_CheckboxWarning.MoveWindow(firstColRect.left, firstColRect.top, 500, 25);
+	m_CheckboxWarning.MoveWindow(firstColRect.left, firstColRect.top, 300, 25);
 
 	//禁止开仓
 	firstColRect.top += 35;
@@ -225,7 +260,7 @@ void CapitalRiskMgtWnd::CreateRiskConfigWnd()
 	m_CheckboxForbid.SetFont(g_FontData.GetFontNum13());
 	m_CheckboxForbid.SetBkColor(g_ColorRefData.g_ColorWhite);
 	m_CheckboxForbid.SetValue(m_cfgData.m_bIsForbidOn);
-	m_CheckboxForbid.MoveWindow(firstColRect.left, firstColRect.top, 500, 25);
+	m_CheckboxForbid.MoveWindow(firstColRect.left, firstColRect.top, 300, 25);
 
 	firstColRect.top += 130;
 	m_LableTips.Create(m_Hwnd, LoadResWchar_t(IDS_Tips));
@@ -252,34 +287,35 @@ void CapitalRiskMgtWnd::CreateSetUserCfgInfoWnd()
 	RECT secondColRect = { nLeftStart + nFirstColWidth, nTop, 0, 0 };
 
 	firstColRect.top += 25;
-	m_LableCurUser.Create(m_Hwnd, L"请选择当前账户使用的分组：");
+	m_LableCurUser.Create(m_Hwnd, LoadResWchar_t(IDS_UserSelect));
 	m_LableCurUser.MoveWindow(firstColRect.left, firstColRect.top, 170, nUniformHeight);
 
 	firstColRect.top += 25;
 	m_ComboxCurUser.Create(m_Hwnd);
 	m_ComboxCurUser.MoveWindow(firstColRect.left, firstColRect.top, 100, nUniformHeight * 10);
-	//SetUserComboxValue();
+	SetUserComboxValue();
 
 	HINSTANCE hInstance = GetModuleHandle(NULL);
-	m_hGroupbox = CreateWindowEx(0, L"button", L"分组信息设置", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
+	m_hGroupbox = CreateWindowEx(0, L"button", LoadResWchar_t(IDS_UserParameterSettings), WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
 		nLeftStart - 15, nTop, 200, 100, m_Hwnd, (HMENU)ID_Groupbox, hInstance, NULL);
 	SendMessage(m_hGroupbox, WM_SETFONT, (WPARAM)g_FontData.GetFontWord13(), (LPARAM)TRUE);
 }
 
 void CapitalRiskMgtWnd::ChangeFrmWithGroup(ConfigData &cfgData)
 {
-
 	m_ComboxBackStandard.SetSelect(cfgData.m_nCancelStandardType);
 	string value = "";
 	if (cfgData.m_nCancelStandardType == PreEquityEnum)
 	{
 		m_EditBackStandardLocal.EnableEdit(false);
+		m_EditBackStandardLocal.SetText("");
 	}
 	else if (cfgData.m_nCancelStandardType == FixedCancelEnum)
 	{
+		m_EditBackStandardLocal.EnableEdit(true);
 		value = to_string(cfgData.m_nFixedMoney);
 		value = value.substr(0, value.size() - 4);
-		m_EditBackStandardLocal.SetWindowText(value.c_str());
+		m_EditBackStandardLocal.SetText(value.c_str());
 	}
 
 	m_ComboxBackMoney.SetSelect(cfgData.m_nCancelMoneyType);
@@ -288,16 +324,34 @@ void CapitalRiskMgtWnd::ChangeFrmWithGroup(ConfigData &cfgData)
 	{
 		value = to_string(cfgData.m_nPercentage);
 		value = value.substr(0, value.size() - 4);
-		m_EditBackPrecent.SetWindowText(value.c_str());
+		m_EditBackPrecent.SetText(value.c_str());
 	}
 	else if (cfgData.m_nCancelMoneyType == FixedCancelEnum)
 	{
 		value = to_string(cfgData.m_nFixedCancelNum);
 		value = value.substr(0, value.size() - 4);
-		m_EditBackPrecent.SetWindowText(value.c_str());
+		m_EditBackPrecent.SetText(value.c_str());
 	}
 	m_CheckboxWarning.SetValue(cfgData.m_bIsWarningOn);
 	m_CheckboxForbid.SetValue(cfgData.m_bIsForbidOn);
+}
+
+void CapitalRiskMgtWnd::SetUserComboxValue()
+{
+	m_ComboxCurUser.Clear();
+	int index = 0;
+	int index2 = 0;
+	auto Iter = m_UserNoAndUserInfoMap.begin();
+	for (; Iter != m_UserNoAndUserInfoMap.end(); ++Iter)
+	{
+		if (m_UserNoAndUserInfoMap.find(m_MainGroupUserCfg) != m_UserNoAndUserInfoMap.end())
+		{
+			index2 = index;
+		}
+		m_ComboxCurUser.AddString(LoadRC::ansi_to_unicode(Iter->first).c_str());
+		++index;
+	}
+	m_ComboxCurUser.SetSelect(index2);
 }
 
 void CapitalRiskMgtWnd::OnCommand(WPARAM wParam, LPARAM lParam)
@@ -305,54 +359,61 @@ void CapitalRiskMgtWnd::OnCommand(WPARAM wParam, LPARAM lParam)
 
 	HWND hwnd = (HWND)lParam;
 	string sCurUserNo = m_ComboxCurUser.GetText();
-	ConfigGroupAdd cnfGroupAdd;
-	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
-	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
-	if (hwnd == m_EditBackStandardLocal.GetEditHwnd())
-	{
-		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedMoney = m_EditBackStandardLocal.GetWindowDoubleNum();
+	bool isSuccess = false;
 
+	ConfigGroupAdd cnfGroupAdd;
+	strcpy_s(cnfGroupAdd.UserNo, sCurUserNo.c_str());
+	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
+	//固定资金Edit
+	if (hwnd == m_EditBackStandardLocal.GetHwnd())
+	{
+		if (sCurUserNo == "") return;
+		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedMoney = m_EditBackStandardLocal.GetDoubleData();
 		strcpy_s(cnfGroupAdd.Key, FIXED_MONEY);
 		cnfGroupAdd.KeyIndex = Index_FIXED_MONEY;
-		cnfGroupAdd.ValueDouble = m_EditBackStandardLocal.GetWindowDoubleNum();
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
-
+		cnfGroupAdd.ValueDouble = m_EditBackStandardLocal.GetDoubleData();
+		isSuccess = g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	} 
-	else if(hwnd == m_EditBackPrecent.GetEditHwnd())
+	//回撤资金Edit
+	else if(hwnd == m_EditBackPrecent.GetHwnd())
 	{
 		DealEditBackPrecent();
 	}
 	else if (hwnd == m_CheckboxForbid.GetHwnd())
 	{
+		if (sCurUserNo == "") return;
 		m_UserNoAndCfgDataMap[sCurUserNo].m_bIsForbidOn = m_CheckboxForbid.GetValue();
 		strcpy_s(cnfGroupAdd.Key, ON_FORBID);
 		cnfGroupAdd.KeyIndex = Index_ON_FORBID;
 		cnfGroupAdd.ValueInt = (int)m_CheckboxForbid.GetValue();
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
 	else if (hwnd == m_CheckboxWarning.GetHwnd())
 	{
+		if (sCurUserNo == "") return;
 		m_UserNoAndCfgDataMap[sCurUserNo].m_bIsWarningOn = m_CheckboxWarning.GetValue();
 		strcpy_s(cnfGroupAdd.Key, ON_WARNING);
 		cnfGroupAdd.KeyIndex = Index_ON_WARNING;
 		cnfGroupAdd.ValueInt = (int)m_CheckboxWarning.GetValue();
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
 	else if (hwnd == m_ComboxBackStandard.GetHwnd())
 	{
-		DealComboxBackStandard()
+		if (sCurUserNo == "") return;
+		DealComboxBackStandard();
 	}
 	else if (hwnd == m_ComboxBackMoney.GetHwnd())
 	{
+		if (sCurUserNo == "") return;
 		DealComboxBackMoney();
 	}
 	else if (hwnd == m_ComboxCurUser.GetHwnd())
 	{
-		m_CurUserNO = sCurUserNo;
+		sCurUserNo = m_ComboxCurUser.GetText();
 		//添加切换分组的界面操作
 		ConfigData cfgData;
-		if (m_CurUserNO != "")
-			cfgData = m_UserNoAndCfgDataMap[m_CurUserNO];
+		if (sCurUserNo != "")
+			cfgData = m_UserNoAndCfgDataMap[sCurUserNo];
 		ChangeFrmWithGroup(cfgData);
 	}
 }
@@ -361,7 +422,7 @@ void CapitalRiskMgtWnd::DealComboxBackMoney()
 {
 	string sCurUserNo = m_ComboxCurUser.GetText();
 	ConfigGroupAdd cnfGroupAdd;
-	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
+	strcpy_s(cnfGroupAdd.UserNo, sCurUserNo.c_str());
 	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
 
 	CancelMoneyTypeEnum tmp = m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelMoneyType;
@@ -378,26 +439,32 @@ void CapitalRiskMgtWnd::DealComboxBackMoney()
 
 	if (tmp != m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelMoneyType)
 	{
-		m_EditBackPrecent.SetWindowText(0.0f);
+		m_EditBackPrecent.SetText("");
+
+		m_UserNoAndCfgDataMap[sCurUserNo].m_nPercentage = 0.0f;
+		strcpy_s(cnfGroupAdd.Key, PERCENTAGE);
+		cnfGroupAdd.KeyIndex = Index_PERCENTAGE;
+		cnfGroupAdd.ValueDouble = 0.0f;
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
+
+		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedCancelNum = 0.0f;
+		strcpy_s(cnfGroupAdd.Key, FIXED_CANCEL);
+		cnfGroupAdd.KeyIndex = Index_FIXED_CANCEL;
+		cnfGroupAdd.ValueDouble = 0.0f;
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
 
 	strcpy_s(cnfGroupAdd.Key, CANCEL_MONEY_TYPE);
 	cnfGroupAdd.KeyIndex = Index_CANCEL_MONEY_TYPE;
 	cnfGroupAdd.ValueInt = (int)m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelMoneyType;
-	g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
-
-	strcpy_s(cnfGroupAdd.Key, FIXED_CANCEL);
-	cnfGroupAdd.KeyIndex = Index_FIXED_CANCEL;
-	cnfGroupAdd.ValueDouble = m_EditBackPrecent.GetWindowDoubleNum();
-	g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+	g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 }
-
 
 void CapitalRiskMgtWnd::DealComboxBackStandard()
 {
 	string sCurUserNo = m_ComboxCurUser.GetText();
 	ConfigGroupAdd cnfGroupAdd;
-	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
+	strcpy_s(cnfGroupAdd.UserNo, sCurUserNo.c_str());
 	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
 
 	string tmpWstr = WcharToChar(LoadResWchar_t(IDS_Fixed_Money));
@@ -408,52 +475,59 @@ void CapitalRiskMgtWnd::DealComboxBackStandard()
 	}
 	else
 	{
-		m_EditBackStandardLocal.SetWindowText("");
+		m_EditBackStandardLocal.SetText("");
 		m_EditBackStandardLocal.EnableEdit(false);
 		m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelStandardType = PreEquityEnum;
+
 		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedCancelNum = 0.0f;
+		strcpy_s(cnfGroupAdd.Key, FIXED_CANCEL);
+		cnfGroupAdd.KeyIndex = Index_FIXED_CANCEL;
+		cnfGroupAdd.ValueDouble = 0.0f;
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
+
 	strcpy_s(cnfGroupAdd.Key, CANCEL_STANDARD_TYPE);
 	cnfGroupAdd.KeyIndex = Index_CANCEL_STANDARD_TYPE;
 	cnfGroupAdd.ValueInt = (int)m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelStandardType;
-	g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+	g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 }
 
 void CapitalRiskMgtWnd::DealEditBackPrecent()
 {
 	string sCurUserNo = m_ComboxCurUser.GetText();
+	if (sCurUserNo == "") return;
 	ConfigGroupAdd cnfGroupAdd;
-	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
+	strcpy_s(cnfGroupAdd.UserNo, sCurUserNo.c_str());
 	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
 
 	if (m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelMoneyType == PercentageEnum)
 	{
-		m_UserNoAndCfgDataMap[sCurUserNo].m_nPercentage = m_EditBackPrecent.GetWindowDoubleNum();
+		m_UserNoAndCfgDataMap[sCurUserNo].m_nPercentage = m_EditBackPrecent.GetDoubleData();
 		strcpy_s(cnfGroupAdd.Key, PERCENTAGE);
 		cnfGroupAdd.KeyIndex = Index_PERCENTAGE;
-		cnfGroupAdd.ValueDouble = m_EditBackStandardLocal.GetWindowDoubleNum();
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		cnfGroupAdd.ValueDouble = m_EditBackPrecent.GetDoubleData();
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 
 		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedCancelNum = 0.0f;
 		strcpy_s(cnfGroupAdd.Key, FIXED_CANCEL);
 		cnfGroupAdd.KeyIndex = Index_FIXED_CANCEL;
 		cnfGroupAdd.ValueDouble = 0.0f;
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 
 	}
 	else if (m_UserNoAndCfgDataMap[sCurUserNo].m_nCancelMoneyType == FixedCancelEnum)
 	{
-		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedCancelNum = m_EditBackPrecent.GetWindowDoubleNum();
+		m_UserNoAndCfgDataMap[sCurUserNo].m_nFixedCancelNum = m_EditBackPrecent.GetDoubleData();
 		strcpy_s(cnfGroupAdd.Key, FIXED_CANCEL);
 		cnfGroupAdd.KeyIndex = Index_FIXED_CANCEL;
-		cnfGroupAdd.ValueDouble = m_EditBackPrecent.GetWindowDoubleNum();
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		cnfGroupAdd.ValueDouble = m_EditBackPrecent.GetDoubleData();
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 
 		m_UserNoAndCfgDataMap[sCurUserNo].m_nPercentage = 0.0f;
 		strcpy_s(cnfGroupAdd.Key, PERCENTAGE);
 		cnfGroupAdd.KeyIndex = Index_PERCENTAGE;
 		cnfGroupAdd.ValueDouble = 0.0f;
-		g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
 }
 
@@ -584,6 +658,17 @@ bool CapitalRiskMgtWnd::CheckDoubleInvildData(char *dText, int nPrecision)
 	}
 }
 
+void CapitalRiskMgtWnd::GetUserInfoFormAPI()
+{
+	for (int i = 0; i < m_nUserCfgCnt; ++i)
+	{
+		if (strcmp(m_UserPluginData_API[i].PluginNo, "CapitalRiskMgt") == 0)
+		{
+			m_UserNoAndUserInfoMap[m_UserPluginData_API[i].UserNo] = m_UserPluginData_API[i];
+		}
+	}
+}
+
 void CapitalRiskMgtWnd::GetGroupConfigFormAPI()
 {
 	string sUserNo = "";
@@ -597,11 +682,11 @@ void CapitalRiskMgtWnd::GetGroupConfigFormAPI()
 		strcpy_s(tcfgReq.UserNo, m_ConfigGroupData_API[i].UserNo);
 		strcpy_s(tcfgReq.Key, m_ConfigGroupData_API[i].Key);
 		tcfgReq.KeyIndex = m_ConfigGroupData_API[i].KeyIndex;
-		g_authent->DelGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, tcfgReq);
+		g_authent->DelGroupConfigInfo(PLUGIN_NAME, tcfgReq);
 		continue;
 #endif
 		sUserNo = m_ConfigGroupData_API[i].UserNo;
-		if (sUserNo.empty())
+		if (sUserNo.empty() && m_UserNoAndUserInfoMap.find(sUserNo) != m_UserNoAndUserInfoMap.end())
 			continue;
 		//保存一份服务器上的结构用于操作服务器的对比
 		//DealGroupInfoToCompare(m_ConfigGroupData_API[i]);
@@ -649,20 +734,10 @@ void CapitalRiskMgtWnd::GetGroupConfigFormAPI()
 
 void CapitalRiskMgtWnd::SetMainUserNOToAPI()
 {
-	if (!m_bCurUserCanModify) return;
-	//重新插入所有非合约和非仓差的其他配置
-	string sMainGroupNO = "Main|" + m_CurUserNO;
-	ConfigGroupAdd cnfGroupAdd;
-	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
-	strcpy_s(cnfGroupAdd.GroupNo, sMainGroupNO.c_str());
-	strcpy_s(cnfGroupAdd.Key, MAIN_GROUP_USER_CFG);
-	cnfGroupAdd.KeyIndex = 99999;
-	strcpy_s(cnfGroupAdd.ValueStr, m_ComboxCurUser.GetText());
-	g_authent->ModifyGroupConfigInfo(AUTHENT_COMPANY, AUTHENT_KEY, cnfGroupAdd);
-
 	//TODO 更新当前的分组的数据
-	auto iter = m_UserNoAndCfgDataMap.find(m_ComboxCurUser.GetText());
+	auto iter = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
 	if (iter != m_UserNoAndCfgDataMap.end())
+	{
 		m_cfgData = iter->second;
-	m_MainGroupUserCfg = m_ComboxCurUser.GetText();
+	}
 }

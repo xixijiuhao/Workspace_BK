@@ -12,6 +12,8 @@ enum
 	IDS_Warning_Issued,				//7 到达回撤后发出警报
 	IDS_Forbid_Open_Qty,			//8 到达回撤后禁止开仓	
 	IDS_Tips,						//9 提示
+	IDS_UserSelect,					//10 请选择要设置的用户：	
+	IDS_UserParameterSettings,		//11 单用户风控参数设置
 	
 	IDS_Forbid_Open_Text = 101,     //101 禁止开仓提醒
 	IDS_Invild_Double_Data,			//102 输入小数的合法精度为两个小数

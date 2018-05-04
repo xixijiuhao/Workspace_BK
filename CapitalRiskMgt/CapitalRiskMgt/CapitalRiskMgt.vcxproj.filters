@@ -183,6 +183,9 @@
     <ClInclude Include="ctl\CxSubClassWnd.h">
       <Filter>ctrl</Filter>
     </ClInclude>
+    <ClInclude Include="ctl\CxEdit.h">
+      <Filter>ctrl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -231,6 +234,9 @@
       <Filter>ctrl</Filter>
     </ClCompile>
     <ClCompile Include="ctl\CxSubClassWnd.cpp">
+      <Filter>ctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctl\CxEdit.cpp">
       <Filter>ctrl</Filter>
     </ClCompile>
   </ItemGroup>

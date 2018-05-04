@@ -1,6 +1,7 @@
 #include "PreInclude.h"
-using namespace std;
 
+using namespace std;
+wchar_t g_sUnicode[1024] = { 0 };
 extern G_COLOREF g_ColorRefData;
 extern G_UIFONT  g_FontData;
 
@@ -21,7 +22,7 @@ BOOL CxSubClassWnd::Init(HWND hWnd)
 		m_hWnd = hWnd;
 
 		m_hParenthWnd = GetParent(m_hWnd);
-		if (SetProp(m_hWnd, L"CxSubClassWnd", (HANDLE)this) == 0)
+		if (SetProp(m_hWnd, _T("CxSubClassWnd"), (HANDLE)this) == 0)
 		{
 			return FALSE;
 		}
@@ -30,17 +31,29 @@ BOOL CxSubClassWnd::Init(HWND hWnd)
 	}
 	return FALSE;
 }
-int CxSubClassWnd::CxGetWindowText(wchar_t *w, unsigned int nLen)
+BOOL CxSubClassWnd::CxGetWindowText(wstring &w)
 {
-	return GetWindowTextW(m_hWnd, w, nLen);
+	::GetWindowTextW(m_hWnd, g_sUnicode, 1024);
+	w = g_sUnicode;
+	return TRUE;
 }
 LRESULT WINAPI CxSubClassWnd::stdProc(HWND hWnd, UINT uMsg, UINT wParam, LONG lParam)
 {
-	CxSubClassWnd* cw = (CxSubClassWnd*)GetProp(hWnd, L"CxSubClassWnd");
+	CxSubClassWnd* cw = (CxSubClassWnd*)GetProp(hWnd, _T("CxSubClassWnd"));
 	return cw->WndProc(uMsg, wParam, lParam);
 }
 //改变原BUTTON的回调过程
 LRESULT CALLBACK CxSubClassWnd::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	return CallWindowProc((WNDPROC)m_OldProc, m_hWnd, message, wParam, lParam); //默认回调过程
+}
+
+void CxSubClassWnd::MoveWindow(int x, int y, int cx, int cy)
+{
+	SetWindowPos(m_hWnd, 0, x, y, cx, cy, SWP_NOZORDER);
+}
+
+void CxSubClassWnd::SetFont(HFONT font)
+{
+	SendMessage(m_hWnd, WM_SETFONT, (WPARAM)font, 0);
 }

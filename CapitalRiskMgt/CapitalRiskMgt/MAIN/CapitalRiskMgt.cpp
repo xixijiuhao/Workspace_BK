@@ -8,9 +8,10 @@ extern IAuthent *g_authent;
 extern IStarApi	*g_StarApi;
 extern ICspAccessApi *g_pCspAccessApi;
 extern CapitalRiskMgtWnd *g_pCapitalRiskMgtWnd;
+extern ITradeApi           *g_pTradeApi;
 
-#define AUTHENT_KEY             "pd2017"
-#define AUTHENT_COMPANY         "SWQH"
+#define AUTHENT_KEY             "123456"
+#define AUTHENT_COMPANY         "EPOLESTAR"
 #define EPSILON					1e-6   
 
 HWND __stdcall GetCfgWnd(const wchar_t *subtitle, const HWND parent)
@@ -50,19 +51,33 @@ CapitalRiskMgt::CapitalRiskMgt()
 
 void CapitalRiskMgt::OnInitComplete()
 {
-	if (g_authent)
+	if (g_authent && g_pCapitalRiskMgtWnd)
 	{
-		UserAuthentEx stAuthent;
-		memset(&stAuthent, 0, sizeof(UserAuthentEx));
-		if (g_authent->GetAuthent(AUTHENT_COMPANY, AUTHENT_KEY, stAuthent))
+		g_pCapitalRiskMgtWnd->QryConfigFinish();
+		UserAuthentEx tmpAuthent;
+		if (g_authent->GetAuthent(AUTHENT_COMPANY, AUTHENT_KEY, tmpAuthent))
 		{
-			if (stAuthent.auth.value[0].value && stAuthent.serverdate < stAuthent.auth.value[0].date)
+			string curUserNO = tmpAuthent.auth.user;
+			int index = 0;
+			while ((index = curUserNO.find(' ', index)) != string::npos)
 			{
-				g_pCapitalRiskMgtWnd->m_bCurUserCanModify = stAuthent.auth.bmodify;
-				g_pCapitalRiskMgtWnd->m_sCurUserInGroupNO = stAuthent.auth.group;
+				curUserNO.erase(index, 1);
+			}
 
+			auto curUserIter = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.find(curUserNO);
+			if (curUserIter != g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.end())
+			{
+				g_pCapitalRiskMgtWnd->m_MainGroupUserCfg = curUserNO;
+				g_pCapitalRiskMgtWnd->m_bCurUserCanModify = (curUserIter->second.OperateRight == '1');
+				g_pCapitalRiskMgtWnd->m_sCurUserInGroupNO = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.GroupNo;
+	
 				g_pCommonModule->Regist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
+				g_pTradeApi->RegistRiskModule((IRiskModuleApi*)this, 0);
 				g_conFrame->reg_config_dlg(LoadResWchar_t(IDS_Capital_Risk_Management), (dlg_create_func)GetCfgWnd, cmtAdvance, 15, "esunny.epolestar.configframe");
+			}
+			else
+			{
+				return;
 			}
 		}
 	}
