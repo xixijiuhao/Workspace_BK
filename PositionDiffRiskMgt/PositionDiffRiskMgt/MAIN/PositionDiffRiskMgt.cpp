@@ -43,14 +43,22 @@ void PositionDiffRiskMgt::OnInitComplete()
 {
 	if (g_authent && g_pPositionDiffRiskMgtWnd)
 	{
+		g_pPositionDiffRiskMgtWnd->QryConfigFinish();
 		UserAuthentEx tmpAuthent;
 		if (g_authent->GetAuthent(AUTHENT_COMPANY, AUTHENT_KEY, tmpAuthent))
 		{
-			auto curUserIter = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.find(tmpAuthent.auth.user);
+			string curUserNO = tmpAuthent.auth.user;
+			int index = 0;
+			while ((index = curUserNO.find(' ', index)) != string::npos)
+			{
+				curUserNO.erase(index, 1);
+			}
+
+			auto curUserIter = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.find(curUserNO);
 			if (curUserIter != g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.end())
 			{
-				g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = tmpAuthent.auth.user;
-				g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = curUserIter->second.OperateRight;
+				g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = curUserNO;
+				g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = curUserIter->second.OperateRight == '1';
 				g_pPositionDiffRiskMgtWnd->m_sCurUserInGroupNO = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.GroupNo;
 				if (ConfigDlgMenuID == 0)
 				{

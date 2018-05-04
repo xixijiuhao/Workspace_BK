@@ -11,6 +11,7 @@
 
 #define AUTHENT_KEY             "123456"
 #define AUTHENT_COMPANY         "EPOLESTAR"
+#define PLUGIN_NAME				"PositionDiffRiskMgt"
 
 enum ControlID
 {
@@ -34,6 +35,13 @@ enum CancelSelectType
 {
 	Forbid_Cancel_Order,
 	Allow_OneTime_Cancel,
+};
+
+enum KEY_INDEX
+{
+	CANCEL_SELECT_TYPE_INDEX = 0,
+	NEED_LESS_POSI_RAG_INDEX,
+	CANCEL_TYPE_SELECT_INDEX
 };
 
 //struct ContractConfigInfo
@@ -108,13 +116,14 @@ private:
 	void CreateRiskConfigWnd();
 	void CreateSetUserCfgInfoWnd();
 	void ChangeFrmWithGroup(ConfigData &cfgData);
+	void SetUserComboxValue();
 
 	void OnBtnGroupAdd();
 	void OnBtnGroupDelete();
 	void OnDealListItem();
 	void SetMainGroupComboxValue();
 	void ShowGroupList();
-	void EnableContorl(bool isEnable);
+	void EnableContorl();
 	void CreateSetGroupInfoWnd();
 
 private:
@@ -126,7 +135,7 @@ private:
 	//void UserStructToApiStruct(ConfigData &userStruct, ConfigGroupRsp &apiStruct);
 	void SetMainGroupNOToAPI();
 	void DealGroupInfoToCompare(ConfigGroupRsp &cfgGroupData);
-	void SetCurGroupSigInfoToAPI(string &strKey, int valueInt);
+	void SetCurGroupSigInfoToAPI(string strKey,int keyIndex, int valueInt);
 	void DealWithContractDeleteData(string &strContractNO);
 	void DealWithContractAddData(string &strContractNO, int nRange);
 	void SaveGroupNoAndIndexMap(string &nUserNo, int nKeyIndex);
@@ -178,7 +187,7 @@ public:
 	ConfigGroupRsp *m_ConfigGroupData_API;
 	UserPluginRsp *m_UserPluginData_API;
 	map<string, vector<ConfigGroupRsp>> m_GroupInfoCompareMap;  //与服务器的数据交互，始终和服务器保持一致
-	map<string, int> m_GroupNoAndIndexCnt;
+	map<string, int> m_UserNoAndIndexCnt;
 
 	//string m_CurGroupNO;
 	string m_CurUserNO;

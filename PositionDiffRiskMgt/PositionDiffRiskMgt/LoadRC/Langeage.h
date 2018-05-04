@@ -16,6 +16,8 @@ enum
 	IDS_Single_Less_Position_Range, //11 开平仓挂单量总和小于仓差
 	IDS_Invild_Position_Range,		//12 无效的仓差值
 	IDS_CancelTypeSelect,           //13 撤单方式选择
+	IDS_UserSelect,					//14 请选择要设置的用户：	
+	IDS_UserParameterSettings,		//15 单用户风控参数设置
 
 	IDS_Invalid_Contract = 101,     //101 无效合约:%s
 	IDS_Invalid_Position,           //102 無效的倉差值

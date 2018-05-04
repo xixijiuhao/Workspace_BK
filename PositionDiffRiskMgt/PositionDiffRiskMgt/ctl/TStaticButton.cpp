@@ -157,7 +157,7 @@ void TStaticButton::OnPaint()
 		if (!m_benable)
 		{
 			hbr = CreateSolidBrush(RGB(170, 175, 186));
-			FillRect(memdc.GetHdc(), &rect, g_ColorRefData.g_HbrGray);
+			FillRect(memdc.GetHdc(), &rect, g_ColorRefData.g_HbrBtnFace);
 			DeleteObject(hbr);
 			SetTextColor(memdc.GetHdc(), g_ColorRefData.GetColorGray());
 		}

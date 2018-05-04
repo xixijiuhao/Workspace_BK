@@ -133,7 +133,7 @@ void TEdit::OnPaint()
 	}
 	else
 	{
-		FillRect(memdc.GetHdc(), &rect, g_ColorRefData.g_HbrGray);
+		FillRect(memdc.GetHdc(), &rect, g_ColorRefData.g_HbrBtnFace);
 	}
 	FrameRect(memdc.GetHdc(), &rect, hframe);
 

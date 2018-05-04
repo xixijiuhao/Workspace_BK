@@ -29,7 +29,13 @@ PositionDiffRiskMgtWnd::PositionDiffRiskMgtWnd()
 {
 	m_nInitGroupCfgCnt = 0;
 	m_ConfigGroupData_API = nullptr;
-	QryConfigFinish();
+	//QryConfigFinish();
+}
+
+PositionDiffRiskMgtWnd::~PositionDiffRiskMgtWnd()
+{
+	delete m_ConfigGroupData_API;
+	m_ConfigGroupData_API = nullptr;
 }
 
 void PositionDiffRiskMgtWnd::QryConfigFinish()
@@ -50,20 +56,12 @@ void PositionDiffRiskMgtWnd::QryConfigInfo()
 	if (m_nInitGroupCfgCnt > 0)
 	{
 		GetGroupConfigFormAPI();
-		//if (m_bCurUserCanModify)
-		//{
-			auto iterFind = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
-			//TODO 存储当前用户的风控配置
-			if (iterFind != m_UserNoAndCfgDataMap.end())
-				m_cfgData = iterFind->second;
-		//}
-		//else
-		//{
-		//	auto iterFind = m_UserNoAndCfgDataMap.find(m_sCurUserInGroupNO);
-		//	//TODO 存储当前用户的风控配置
-		//	if (iterFind != m_UserNoAndCfgDataMap.end())
-		//		m_cfgData = iterFind->second;
-		//}
+		auto Iter = m_UserNoAndIndexCnt.begin();
+		for (;Iter != m_UserNoAndIndexCnt.end();++Iter)
+		{
+			if (Iter->second < 3)
+				Iter->second = 3;
+		}
 	}
 }
 
@@ -78,12 +76,6 @@ void PositionDiffRiskMgtWnd::QryUserInfo()
 	{
 		GetUserInfoFormAPI();
 	}
-}
-
-PositionDiffRiskMgtWnd::~PositionDiffRiskMgtWnd()
-{
-	delete m_ConfigGroupData_API;
-	m_ConfigGroupData_API = nullptr;
 }
 
 void PositionDiffRiskMgtWnd::CreateCfgWnd(const wchar_t * title)
@@ -245,15 +237,23 @@ void PositionDiffRiskMgtWnd::OnMeasureItem(WPARAM wParam, LPARAM lParam)
 
 void PositionDiffRiskMgtWnd::OnCreate()
 {
+	auto iterFind = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
+	//TODO 存储当前用户的风控配置
+	if (iterFind != m_UserNoAndCfgDataMap.end())
+	{
+		m_cfgData = iterFind->second;
+	}
 
 	CreateRiskConfigWnd();
-
-	//EnableContorl(m_bCurUserCanModify);
-	//if (m_bCurUserCanModify)
-	//{
-	//	CreateSetGroupInfoWnd();
-	//}
-	CreateSetUserCfgInfoWnd();
+	
+	if (!m_bCurUserCanModify)
+	{
+		EnableContorl();
+	}
+	else
+	{
+		CreateSetUserCfgInfoWnd();
+	}
 }
 
 
@@ -270,16 +270,16 @@ void PositionDiffRiskMgtWnd::CreateSetUserCfgInfoWnd()
 	RECT secondColRect = { nLeftStart + nFirstColWidth, nTop, 0, 0 };
 
 	firstColRect.top += 25;
-	m_LableCurUser.Create(m_Hwnd, L"请选择当前用户：");
+	m_LableCurUser.Create(m_Hwnd, LoadResWchar_t(IDS_UserSelect));
 	m_LableCurUser.MoveWindow(firstColRect.left, firstColRect.top, 170, nUniformHeight);
 
 	firstColRect.top += 25;
 	m_ComboxCurUser.Create(m_Hwnd);
 	m_ComboxCurUser.MoveWindow(firstColRect.left, firstColRect.top, 100, nUniformHeight * 10);
-	//SetUserComboxValue();
+	SetUserComboxValue();
 
 	HINSTANCE hInstance = GetModuleHandle(NULL);
-	m_hGroupbox = CreateWindowEx(0, L"button", L"用户风控参数设置", WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
+	m_hGroupbox = CreateWindowEx(0, L"button", LoadResWchar_t(IDS_UserParameterSettings), WS_CHILD | WS_VISIBLE | BS_GROUPBOX,
 		nLeftStart - 15, nTop, 200, 100, m_Hwnd, (HMENU)ID_Groupbox, hInstance, NULL);
 	SendMessage(m_hGroupbox, WM_SETFONT, (WPARAM)g_FontData.GetFontWord13(), (LPARAM)TRUE);
 }
@@ -392,6 +392,31 @@ void PositionDiffRiskMgtWnd::CreateRiskConfigWnd()
 	}
 }
 
+void PositionDiffRiskMgtWnd::EnableContorl()
+{
+	m_EditContract.EnableEdit(false);
+	m_EditContract.SetFgColor(g_ColorRefData.GetColorWhite());
+	m_EditPositionRange.EnableEdit(false);
+	m_EditPositionRange.SetFgColor(g_ColorRefData.GetColorWhite());
+	m_SelectContractBtn.EnableButton(false);
+	m_AddBtn.EnableButton(false);
+	m_DeleteBtn.EnableButton(false);
+
+	EnableWindow(m_listDefaultQty.GetListHwnd(), false);
+	InvalidateRect(m_listDefaultQty.GetListHwnd(), 0, true);
+
+	EnableWindow(m_ComboxCancelSel.GetHwnd(), false);
+	InvalidateRect(m_ComboxCancelSel.GetHwnd(), 0, true);
+
+	EnableWindow(m_CheckboxHangupOrd.GetHwnd(), false);
+	InvalidateRect(m_CheckboxHangupOrd.GetHwnd(), 0, true);
+
+	EnableWindow(m_CheckboxCancelType.GetHwnd(), false);
+	InvalidateRect(m_CheckboxCancelType.GetHwnd(), 0, true);
+
+	EnableWindow(m_ComboxCurUser.GetHwnd(), false);
+	InvalidateRect(m_ComboxCurUser.GetHwnd(), 0, true);
+}
 
 void PositionDiffRiskMgtWnd::ShowList(ConfigData &cfgData)
 {
@@ -421,6 +446,23 @@ void PositionDiffRiskMgtWnd::ShowGroupList()
 	}
 }
 
+void PositionDiffRiskMgtWnd::SetUserComboxValue()
+{
+	m_ComboxCurUser.Clear();
+	int index = 0;
+	int index2 = 0;
+	auto Iter = m_UserNoAndUserInfoMap.begin();
+	for (; Iter != m_UserNoAndUserInfoMap.end(); ++Iter)
+	{
+		if (m_UserNoAndUserInfoMap.find(m_MainGroupUserCfg) != m_UserNoAndUserInfoMap.end())
+		{
+			index2 = index;
+		}
+		m_ComboxCurUser.AddString(LoadRC::ansi_to_unicode(Iter->first).c_str());
+		++index;
+	}
+	m_ComboxCurUser.SetSelect(index2);
+}
 
 void PositionDiffRiskMgtWnd::OnNotify(WPARAM wParam, LPARAM lParam)
 {
@@ -444,20 +486,17 @@ void PositionDiffRiskMgtWnd::OnCommand(WPARAM wParam, LPARAM lParam)
 	if (hwnd == m_ComboxCancelSel.GetHwnd())
 	{
 		m_UserNoAndCfgDataMap[m_CurUserNO].m_CancelSelType = (CancelSelectType)m_ComboxCancelSel.GetSelect();
-		string str = CANCEL_SELECT_TYPE;
-		SetCurGroupSigInfoToAPI(str, m_ComboxCancelSel.GetSelect());
+		SetCurGroupSigInfoToAPI(CANCEL_SELECT_TYPE, CANCEL_SELECT_TYPE_INDEX, m_ComboxCancelSel.GetSelect());
 	}
 	else if (hwnd == m_CheckboxHangupOrd.GetHwnd())
 	{
 		m_UserNoAndCfgDataMap[m_CurUserNO].m_bNeedLessPosiRag = m_CheckboxHangupOrd.GetValue();
-		string str = NEED_LESS_POSI_RAG;
-		SetCurGroupSigInfoToAPI(str, (int)m_CheckboxHangupOrd.GetValue());
+		SetCurGroupSigInfoToAPI(NEED_LESS_POSI_RAG, NEED_LESS_POSI_RAG_INDEX, (int)m_CheckboxHangupOrd.GetValue());
 	}
 	else if (hwnd == m_CheckboxCancelType.GetHwnd())
 	{
 		m_UserNoAndCfgDataMap[m_CurUserNO].m_bIsCommonModel = m_CheckboxCancelType.GetValue();
-		string str = CANCEL_TYPE_SELECT;
-		SetCurGroupSigInfoToAPI(str, (int)m_CheckboxCancelType.GetValue());
+		SetCurGroupSigInfoToAPI(CANCEL_TYPE_SELECT, CANCEL_TYPE_SELECT_INDEX, (int)m_CheckboxCancelType.GetValue());
 	}
 	else if(hwnd == m_ComboxCurUser.GetHwnd())
 	{
@@ -521,24 +560,24 @@ void PositionDiffRiskMgtWnd::DealWithContractAddData(string &strContractNO, int 
 		DealWithContractDeleteData(strContractNO);
 	}
 
-	++m_GroupNoAndIndexCnt[m_sCurUserInGroupNO];
+	++m_UserNoAndIndexCnt[m_CurUserNO];
 	ConfigGroupAdd cnfGroupAdd;
 
 	strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
 	strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
 	//ADD 合约号
 	strcpy_s(cnfGroupAdd.Key, NODE_CONTRACT);
-	cnfGroupAdd.KeyIndex = m_GroupNoAndIndexCnt[m_sCurUserInGroupNO];
+	cnfGroupAdd.KeyIndex = m_UserNoAndIndexCnt[m_CurUserNO];
 	strcpy_s(cnfGroupAdd.ValueStr, strContractNO.c_str());
-	g_authent->AddGroupConfigInfo(cnfGroupAdd);
+	g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	m_GroupInfoCompareMap[m_sCurUserInGroupNO].push_back(cnfGroupAdd);
 
 	//ADD 仓差
 	strcpy_s(cnfGroupAdd.ValueStr, "");
 	strcpy_s(cnfGroupAdd.Key, NODE_POSITION_RANGE);
-	cnfGroupAdd.KeyIndex = m_GroupNoAndIndexCnt[m_sCurUserInGroupNO];
+	cnfGroupAdd.KeyIndex = m_UserNoAndIndexCnt[m_CurUserNO];
 	cnfGroupAdd.ValueInt = nRange;
-	g_authent->AddGroupConfigInfo(cnfGroupAdd);
+	g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	m_GroupInfoCompareMap[m_sCurUserInGroupNO].push_back(cnfGroupAdd);
 }
 
@@ -581,14 +620,14 @@ void PositionDiffRiskMgtWnd::DealWithContractDeleteData(string &strContractNO)
 				strcpy_s(tcfgReq.UserNo, cfgGroupRsp.UserNo);
 				strcpy_s(tcfgReq.Key, cfgGroupRsp.Key);
 				tcfgReq.KeyIndex = cfgGroupRsp.KeyIndex;
-				g_authent->DelGroupConfigInfo(tcfgReq);
+				g_authent->DelGroupConfigInfo(PLUGIN_NAME, tcfgReq);
 
 				//删除该分组这一 m_CurGroupNO 合约对应的仓差
 				strcpy_s(tcfgReq.GroupNo, cfgGroupRsp.GroupNo);
 				strcpy_s(tcfgReq.UserNo, cfgGroupRsp.UserNo);
 				strcpy_s(tcfgReq.Key, NODE_POSITION_RANGE);
 				tcfgReq.KeyIndex = cfgGroupRsp.KeyIndex;
-				g_authent->DelGroupConfigInfo(tcfgReq);
+				g_authent->DelGroupConfigInfo(PLUGIN_NAME, tcfgReq);
 
 				curKeyIndex = cfgGroupRsp.KeyIndex;
 				vecIndexGroupInfo.erase(iterGroupInfo);
@@ -796,7 +835,7 @@ void PositionDiffRiskMgtWnd::GetGroupConfigFormAPI()
 		strcpy_s(tcfgReq.UserNo, m_ConfigGroupData_API[i].UserNo);
 		strcpy_s(tcfgReq.Key, m_ConfigGroupData_API[i].Key);
 		tcfgReq.KeyIndex = m_ConfigGroupData_API[i].KeyIndex;
-		g_authent->DelGroupConfigInfo(tcfgReq);
+		g_authent->DelGroupConfigInfo(PLUGIN_NAME, tcfgReq);
 		continue;
 #endif
 		/*if (strcmp(m_ConfigGroupData_API[i].Key, MAIN_GROUP_USER_CFG) == 0)
@@ -805,17 +844,10 @@ void PositionDiffRiskMgtWnd::GetGroupConfigFormAPI()
 			continue;
 		}*/
 		nUserNo = m_ConfigGroupData_API[i].UserNo;
-		if (nUserNo.empty())
+		if (nUserNo.empty() && m_UserNoAndUserInfoMap.find(nUserNo) == m_UserNoAndUserInfoMap.end())
 			continue;
 		//保存一份服务器上的结构用于操作服务器的对比
 		DealGroupInfoToCompare(m_ConfigGroupData_API[i]);
-
-		//string sGroupName = "";
-		//int cpos = nUserNo.find('|');
-		//if (cpos == std::string::npos) 
-		//	continue;
-		//sGroupName = nGroupNo.substr(0, cpos);
-		//m_GroupNoAndNameMap.emplace(make_pair(nGroupNo, sGroupName));
 
 		auto iter = m_UserNoAndCfgDataMap.find(nUserNo);
 		if (iter == m_UserNoAndCfgDataMap.end())
@@ -868,10 +900,10 @@ void PositionDiffRiskMgtWnd::GetGroupConfigFormAPI()
 	}
 }
 
-void PositionDiffRiskMgtWnd::SetCurGroupSigInfoToAPI(string &strKey,int valueInt)
+void PositionDiffRiskMgtWnd::SetCurGroupSigInfoToAPI(string strKey,int keyIndex,int valueInt)
 {
+
 	ConfigGroupAdd cnfGroupAdd;
-	int curKey = -1;
 	m_CurUserNO = m_ComboxCurUser.GetText();
 	auto iterCompare = m_GroupInfoCompareMap.find(m_CurUserNO);
 	if (iterCompare != m_GroupInfoCompareMap.end())
@@ -887,8 +919,7 @@ void PositionDiffRiskMgtWnd::SetCurGroupSigInfoToAPI(string &strKey,int valueInt
 				strcpy_s(tcfgReq.UserNo, cfgGroupRsp.UserNo);
 				strcpy_s(tcfgReq.Key, cfgGroupRsp.Key);
 				tcfgReq.KeyIndex = cfgGroupRsp.KeyIndex;
-				curKey = cfgGroupRsp.KeyIndex;
-				g_authent->DelGroupConfigInfo(tcfgReq);
+				g_authent->DelGroupConfigInfo(PLUGIN_NAME, tcfgReq);
 				iterGroupAdd = iterCompare->second.erase(iterGroupAdd);
 				break;
 			}
@@ -897,18 +928,14 @@ void PositionDiffRiskMgtWnd::SetCurGroupSigInfoToAPI(string &strKey,int valueInt
 				++iterGroupAdd;
 			}
 		}
-		if (curKey < 0)
-		{
-			++m_GroupNoAndIndexCnt[m_CurUserNO];
-			curKey = m_GroupNoAndIndexCnt[m_CurUserNO];
-		}
+
 		//重新插入所有非合约和非仓差的其他配置
 		strcpy_s(cnfGroupAdd.UserNo, m_CurUserNO.c_str());
 		strcpy_s(cnfGroupAdd.GroupNo, m_sCurUserInGroupNO.c_str());
 		strcpy_s(cnfGroupAdd.Key, strKey.c_str());
-		cnfGroupAdd.KeyIndex = curKey;
+		cnfGroupAdd.KeyIndex = keyIndex;
 		cnfGroupAdd.ValueInt = valueInt;
-		g_authent->AddGroupConfigInfo(cnfGroupAdd);
+		g_authent->AddGroupConfigInfo(PLUGIN_NAME, cnfGroupAdd);
 	}
 		//else
 		//{
@@ -965,16 +992,16 @@ void PositionDiffRiskMgtWnd::DealGroupInfoToCompare(ConfigGroupRsp &cfgGroupData
 
 void PositionDiffRiskMgtWnd::SaveGroupNoAndIndexMap(string &nUserNo, int nKeyIndex)
 {
-	if (m_GroupNoAndIndexCnt.find(nUserNo) != m_GroupNoAndIndexCnt.end())
+	if (m_UserNoAndIndexCnt.find(nUserNo) != m_UserNoAndIndexCnt.end())
 	{
-		if (nKeyIndex > m_GroupNoAndIndexCnt[nUserNo])
+		if (nKeyIndex > m_UserNoAndIndexCnt[nUserNo])
 		{
-			m_GroupNoAndIndexCnt[nUserNo] = nKeyIndex;
+			m_UserNoAndIndexCnt[nUserNo] = nKeyIndex;
 		}
 	}
 	else
 	{
-		m_GroupNoAndIndexCnt[nUserNo] = nKeyIndex;
+		m_UserNoAndIndexCnt[nUserNo] = nKeyIndex;
 	}
 }
 
@@ -995,9 +1022,9 @@ void PositionDiffRiskMgtWnd::SetMainGroupNOToAPI()
 	//g_authent->ModifyGroupConfigInfo(cnfGroupAdd);
 
 	////TODO 更新当前的分组的数据
-	//auto iter = m_UserNoAndCfgDataMap.find(m_ComboxCurUserGroup.GetText());
-	//if (iter != m_UserNoAndCfgDataMap.end())
-	//	m_cfgData = iter->second;
+	auto iter = m_UserNoAndCfgDataMap.find(m_MainGroupUserCfg);
+	if (iter != m_UserNoAndCfgDataMap.end())
+		m_cfgData = iter->second;
 
 	//m_MainGroupUserCfg = m_ComboxCurUserGroup.GetText();
 }
@@ -1192,23 +1219,3 @@ void PositionDiffRiskMgtWnd::SetMainGroupNOToAPI()
 //	ChangeFrmWithGroup(cfgData);
 //}
 
-//void PositionDiffRiskMgtWnd::EnableContorl(bool isEnable)
-//{
-//	m_EditContract.EnableEdit(isEnable);
-//	m_EditPositionRange.EnableEdit(isEnable);
-//	m_SelectContractBtn.EnableButton(isEnable);
-//	m_AddBtn.EnableButton(isEnable);
-//	m_DeleteBtn.EnableButton(isEnable);
-//
-//	EnableWindow(m_listDefaultQty.GetListHwnd(), isEnable);
-//	InvalidateRect(m_listDefaultQty.GetListHwnd(), 0, true);
-//
-//	EnableWindow(m_ComboxCancelSel.GetHwnd(), isEnable);
-//	InvalidateRect(m_ComboxCancelSel.GetHwnd(), 0, true);
-//
-//	EnableWindow(m_CheckboxHangupOrd.GetHwnd(), isEnable);
-//	InvalidateRect(m_CheckboxHangupOrd.GetHwnd(), 0, true);
-//
-//	EnableWindow(m_CheckboxCancelType.GetHwnd(), isEnable);
-//	InvalidateRect(m_CheckboxCancelType.GetHwnd(), 0, true);
-//}

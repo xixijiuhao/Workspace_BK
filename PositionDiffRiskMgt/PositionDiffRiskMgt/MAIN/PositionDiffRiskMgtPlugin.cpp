@@ -144,8 +144,7 @@ void __cdecl OnPluginInit(TPluginMgrApi* p)
 	
     if (!g_mainframe || !g_StarApi)
         return;
-	auto tmp = LoadResWchar_t(IDS_PositionDiff_Risk_Management);
-	g_mainframe->RegMenuItem(MAKE_MENUORDER(0, 10002, 3), tmp, PositionDiffRiskMgtWnd::OnMenuClick);
+	g_mainframe->RegMenuItem(MAKE_MENUORDER(0, 10002, 4), LoadResWchar_t(IDS_PositionDiff_Risk_Management), PositionDiffRiskMgtWnd::OnMenuClick);
 	//       g_pMainFrame->RegHotKey(false, false, false, VK_F8, false, SHFEDeepQuoteFrm::TOnHotKeyDown);
 	//将界面类和控制类初始化
 	if (!g_pPositionDiffRiskMgtWnd)
