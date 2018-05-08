@@ -51,33 +51,40 @@ CapitalRiskMgt::CapitalRiskMgt()
 
 void CapitalRiskMgt::OnInitComplete()
 {
-	if (g_authent && g_pCapitalRiskMgtWnd)
+	if (g_pCapitalRiskMgtWnd)
 	{
 		g_pCapitalRiskMgtWnd->QryConfigFinish();
-		UserAuthentEx tmpAuthent;
-		if (g_authent->GetAuthent(AUTHENT_COMPANY, AUTHENT_KEY, tmpAuthent))
+
+		if (g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.size() > 0)
 		{
-			string curUserNO = tmpAuthent.auth.user;
-			int index = 0;
-			while ((index = curUserNO.find(' ', index)) != string::npos)
+			g_pCommonModule->Regist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
+			g_pTradeApi->RegistRiskModule((IRiskModuleApi*)this, 0);
+			g_conFrame->reg_config_dlg(LoadResWchar_t(IDS_Capital_Risk_Management), (dlg_create_func)GetCfgWnd, cmtAdvance, 15, "esunny.epolestar.configframe");
+
+			auto Iter = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.begin();
+			g_pCapitalRiskMgtWnd->m_sCurUserInGroupNO = Iter->second.GroupNo;
+			if (g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.size() == 1)
 			{
-				curUserNO.erase(index, 1);
+				g_pCapitalRiskMgtWnd->m_bCurUserCanModify = (Iter->second.OperateRight == '1');
+				g_pCapitalRiskMgtWnd->m_MainGroupUserCfg = Iter->second.UserNo;
+				return;
 			}
 
-			auto curUserIter = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.find(curUserNO);
-			if (curUserIter != g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.end())
+			bool isHaveMainUser = false;
+			for (; Iter != g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.end(); ++Iter)
 			{
-				g_pCapitalRiskMgtWnd->m_MainGroupUserCfg = curUserNO;
-				g_pCapitalRiskMgtWnd->m_bCurUserCanModify = (curUserIter->second.OperateRight == '1');
-				g_pCapitalRiskMgtWnd->m_sCurUserInGroupNO = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.GroupNo;
-	
-				g_pCommonModule->Regist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
-				g_pTradeApi->RegistRiskModule((IRiskModuleApi*)this, 0);
-				g_conFrame->reg_config_dlg(LoadResWchar_t(IDS_Capital_Risk_Management), (dlg_create_func)GetCfgWnd, cmtAdvance, 15, "esunny.epolestar.configframe");
+				if (Iter->second.OperateRight == '1')
+				{
+					g_pCapitalRiskMgtWnd->m_bCurUserCanModify = true;
+					g_pCapitalRiskMgtWnd->m_MainGroupUserCfg = Iter->second.UserNo;
+					break;
+				}
 			}
-			else
+
+			if (!isHaveMainUser)
 			{
-				return;
+				g_pCapitalRiskMgtWnd->m_bCurUserCanModify = false;
+				g_pCapitalRiskMgtWnd->m_MainGroupUserCfg = g_pCapitalRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.UserNo;
 			}
 		}
 	}
