@@ -175,6 +175,11 @@ LRESULT PositionDiffRiskMgtWnd::WndProc(UINT message, WPARAM wParam, LPARAM lPar
 void PositionDiffRiskMgtWnd::OnButtonClickDown(WPARAM wParam, LPARAM lParam)
 {
 	m_CurUserNO = m_ComboxCurUser.GetText();
+	//auto userIter = m_UserNoAndUserInfoMap.find(m_CurUserNO);
+	//if (userIter != m_UserNoAndUserInfoMap.end())
+	//{
+	//	m_sCurUserInGroupNO = userIter->second.GroupNo;
+	//}
 
 	if (m_CurUserNO == "")
 	{
@@ -476,7 +481,12 @@ void PositionDiffRiskMgtWnd::OnCommand(WPARAM wParam, LPARAM lParam)
 {
 	HWND hwnd = (HWND)lParam;
 	m_CurUserNO = m_ComboxCurUser.GetText();
-
+	//auto userIter = m_UserNoAndUserInfoMap.find(m_CurUserNO);
+	//if (userIter != m_UserNoAndUserInfoMap.end())
+	//{
+	//	m_sCurUserInGroupNO = userIter->second.GroupNo;
+	//}
+		
 	if (m_CurUserNO == "" && hwnd != m_ComboxCurUser.GetHwnd())
 	{
 		MessageBox(NULL, L"请先选中一个分组", LoadResWchar_t(IDS_Tips), MB_OK);

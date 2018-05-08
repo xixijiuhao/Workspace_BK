@@ -41,49 +41,44 @@ HWND __stdcall GetCfgWnd(const wchar_t *subtitle, const HWND parent)
 
 void PositionDiffRiskMgt::OnInitComplete()
 {
-	if (g_authent && g_pPositionDiffRiskMgtWnd)
+	if (g_pPositionDiffRiskMgtWnd)
 	{
 		g_pPositionDiffRiskMgtWnd->QryConfigFinish();
-		UserAuthentEx tmpAuthent;
-		if (g_authent->GetAuthent(AUTHENT_COMPANY, AUTHENT_KEY, tmpAuthent))
+
+		if(g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.size() > 0)
 		{
-			string curUserNO = tmpAuthent.auth.user;
-			int index = 0;
-			while ((index = curUserNO.find(' ', index)) != string::npos)
+			if (ConfigDlgMenuID == 0)
 			{
-				curUserNO.erase(index, 1);
+				g_pCommonModule->Regist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
+				g_pTradeApi->RegistRiskModule((IRiskModuleApi*)this, 0);
+				ConfigDlgMenuID = g_conFrame->reg_config_dlg(LoadResWchar_t(IDS_PositionDiff_Risk_Management), (dlg_create_func)GetCfgWnd, cmtAdvance, 15, "esunny.epolestar.configframe");
 			}
 
-			auto curUserIter = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.find(curUserNO);
-			if (curUserIter != g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.end())
+			auto Iter = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.begin();
+			g_pPositionDiffRiskMgtWnd->m_sCurUserInGroupNO = Iter->second.GroupNo;
+			if (g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.size() == 1)
 			{
-				g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = curUserNO;
-				g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = curUserIter->second.OperateRight == '1';
-				g_pPositionDiffRiskMgtWnd->m_sCurUserInGroupNO = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.GroupNo;
-				if (ConfigDlgMenuID == 0)
-				{
-					g_pCommonModule->Regist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
-					g_pTradeApi->RegistRiskModule((IRiskModuleApi*)this, 0);
-					ConfigDlgMenuID = g_conFrame->reg_config_dlg(LoadResWchar_t(IDS_PositionDiff_Risk_Management), (dlg_create_func)GetCfgWnd, cmtAdvance, 15, "esunny.epolestar.configframe");
-				}
-			}
-			else
-			{
+				g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = (Iter->second.OperateRight == '1');
+				g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = Iter->second.UserNo;
 				return;
 			}
-		
-		//	bool hasRight = (g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.size() > 0);
-		//	if (hasRight)
-		//	{
-
-		//	}
-		//	else if (ConfigDlgMenuID != 0)
-		//	{
-		//		g_pCommonModule->UnRegist((ICommonInteractRiskCheck*)this, InteractType_RiskCheck);
-		//		g_pTradeApi->UnRegistRiskModule((IRiskModuleApi*)this);
-		//		g_conFrame->unreg_config_dlg(ConfigDlgMenuID);
-		//		ConfigDlgMenuID = 0;
-		//	}
+			
+			bool isHaveMainUser = false;
+			for (;Iter != g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.end(); ++ Iter)
+			{
+				isHaveMainUser = Iter->second.OperateRight == '1';
+				if (isHaveMainUser)
+				{
+					g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = true;
+					g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = Iter->second.UserNo;
+					return;
+				}
+			}
+			if (!isHaveMainUser)
+			{
+				g_pPositionDiffRiskMgtWnd->m_bCurUserCanModify = false;
+				g_pPositionDiffRiskMgtWnd->m_MainGroupUserCfg = g_pPositionDiffRiskMgtWnd->m_UserNoAndUserInfoMap.begin()->second.UserNo;
+			}
 		}
 	}
 }
