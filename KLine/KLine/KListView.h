@@ -69,9 +69,11 @@ private:
 	COLORREF			m_textColor;
 	COLORREF			m_scrollColor;
 	COLORREF			m_selectColor;
+	COLORREF			m_selectTextColor;
 private:
 	HWND				m_hParent;
 	RECT				m_frameRect;			//Frame
+	RECT				m_scrollRect;			//Scroll
 	RECT				m_itemRect;				//总ItemRect
 	RECT				m_headerRect;			//总HeaderRect
 	vtRect				m_vtHeaderRect;			//HeaderRect
@@ -85,7 +87,8 @@ private:
 	int					m_itemSelectIndex;		//Item当前选中Index
 	int					m_itemHoverIndex;		//item当前悬浮Index
 	int					m_iheaderHoverIndex;	//header当前悬浮Index
-	bool				m_bMousetrack;			
+	bool				m_bMousetrack;		
+	bool				m_bIsMoveItem;
 
 };
 class KListViewItem

@@ -32,6 +32,10 @@ private:
 	KLineChartRect	m_clRect;
 private:
 	HWND			m_iParentHwnd;
+	TCHAR  m_szImgFilePath[200];
+	Gdiplus::Image*  m_Img;
+	Gdiplus::Rect m_frmRect;
+	ULONG_PTR gdiplusStartupToken;
 
 //移动K线
 private:
@@ -61,14 +65,12 @@ private:
 	void DrawTCRSLine(TMemDC& dc);
 	//更新时间点和趋势信息(  高频和当日 如何展示趋势，目前都显示ST )
 	void DrawTrend(TMemDC& dc);
-
+	void GetImgeWithPath(const wchar_t* imageName);
 	void DrawResSupLine(TMemDC& dc, SPriceType price, std::string name);
 private:
 	//画十字光标
 	BOOL			m_bShowCross;
 	void DrawCross(TMemDC& dc);
-
-
 };
 
 

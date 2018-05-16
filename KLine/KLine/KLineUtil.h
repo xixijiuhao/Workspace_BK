@@ -23,6 +23,7 @@ namespace KLineUtil
 	//»­Í¼ÐÎ
 	void DrawTrend(TMemDC& dc,KLinePoint point, TCOPinion trend, bool drawArraw = true);
 	void NewDrawTrend(TMemDC& dc, KLinePoint from, POINT to, bool up);
+	void NewDrawTrendWithImage(KLinePoint point, POINT to, bool up, POINT &imagePoint);
 };
 
 

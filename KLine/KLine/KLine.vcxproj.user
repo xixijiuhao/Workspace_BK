@@ -12,4 +12,9 @@
     </LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LocalDebuggerCommand>$(SolutionDir)..\Debug_28\epolestar ix.exe</LocalDebuggerCommand>
+    <LocalDebuggerWorkingDirectory>..\..\Debug_28</LocalDebuggerWorkingDirectory>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

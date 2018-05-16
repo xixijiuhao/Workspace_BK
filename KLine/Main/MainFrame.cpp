@@ -66,10 +66,11 @@ void TMainFrm::setPresenter(KLinePresenter* presenter)
 }
 void TMainFrm::ChangeFrameRect(int width, int height)
 {
-	m_MainFrmRect.IntroductRect = { KLineView_LeftWidth, height - KLineIntroduct_Height , width - KListView_Width - KLineView_LeftWidth, KLineIntroduct_Height };
-	m_MainFrmRect.CommodityListRect = { width - KListView_Width, CAPTION_HEIGHT + KLineView_TopHeight, KListView_Width , height - CAPTION_HEIGHT - KLineView_TopHeight };
+	int IntroductViewHeight = height / 3;
+	m_MainFrmRect.IntroductRect = { KLineView_LeftWidth, height - IntroductViewHeight , width - KListView_Width - KLineView_LeftWidth, IntroductViewHeight };
+	m_MainFrmRect.CommodityListRect = { width - KListView_Width, CAPTION_HEIGHT/* + KLineView_TopHeight*/, KListView_Width , height - CAPTION_HEIGHT/* - KLineView_TopHeight */};
 	m_MainFrmRect.TopRect = { 0 , 0, width, CAPTION_HEIGHT };
-	m_MainFrmRect.KLineChartRect = { 0, CAPTION_HEIGHT, width - KListView_Width, height - CAPTION_HEIGHT - KLineIntroduct_Height};
+	m_MainFrmRect.KLineChartRect = { 0, CAPTION_HEIGHT, width - KListView_Width, height - CAPTION_HEIGHT - IntroductViewHeight };
 	if (m_bFirstShowSubView) 
 	{
 		m_Presenter->ShowSubView(m_MainFrmRect);

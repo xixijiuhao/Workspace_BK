@@ -222,7 +222,6 @@ void KLineUtil::NewDrawTrend(TMemDC& dc, KLinePoint point,POINT to,  bool up)
 
 	LineTo(dc.GetHdc(), ptTo.x, ptTo.y);
 
-
 	double slopy = 0, cosy = 0, siny = 0;
 	double par = 8.0; //length of Arrow (>)
 	slopy = atan2(double(ptFrom.y - ptTo.y), double(ptFrom.x - ptTo.x));
@@ -244,4 +243,21 @@ void KLineUtil::NewDrawTrend(TMemDC& dc, KLinePoint point,POINT to,  bool up)
 
 	DeleteObject(redPen);
 	DeleteObject(greenPen);
+}
+
+void KLineUtil::NewDrawTrendWithImage(KLinePoint point, POINT to, bool up, POINT &imagePoint)
+{
+	int sliceX = to.x - point.x;
+	int ArrawVap = 10;
+	int fromY = (point.CloseY + point.OpenY) / 2;
+	imagePoint = { point.x + KLineUtil::GetKLineWidth() * 2, fromY };
+	/*imagePoint.x = to.x - ArrawVap;*/
+	/*if (up)
+	{
+		imagePoint.y = to.y + ArrawVap;
+	}
+	else
+	{
+		imagePoint.y = to.y - ArrawVap;
+	}*/
 }

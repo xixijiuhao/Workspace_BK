@@ -1,5 +1,11 @@
 #include "BaseInclude.h"
 
+#define ImageFilePath   L"\\images\\"
+#define UP_BIG	L"up_big.png"
+#define UP_SMALL L"up_small.png"
+#define DOWN_BIG L"down_big.png"
+#define DOWN_SMALL L"down_small.png"
+
 KLineView::KLineView():m_bMouseTract(false), m_bMouseDown(false), m_bShowCross(false)
 {
 }
@@ -13,6 +19,9 @@ void KLineView::CreateView(HWND parent, CRECT& rect)
 	m_iParentHwnd = parent;
 	CreateFrm(L"KLineView", parent, WS_VISIBLE | WS_CHILD);
 	SetWindowPos(m_Hwnd, 0, rect.x, rect.y, rect.cx,  rect.cy, 0);
+
+	Gdiplus::GdiplusStartupInput    m_Gdistart;
+	Gdiplus::GdiplusStartup(&gdiplusStartupToken, &m_Gdistart, NULL);
 }
 
 void KLineView::MoveWindow(CRECT& rect)
@@ -48,6 +57,9 @@ LRESULT KLineView::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_MOUSELEAVE:
 		OnMouseLeave();
+	case WM_NCDESTROY:
+		Gdiplus::GdiplusShutdown(gdiplusStartupToken);
+		return PROCESSED;
 	default:
 		break;
 	}
@@ -61,30 +73,34 @@ void KLineView::OnPaint()
 {
 	TMemDC dc(m_Hwnd);
 	KLineSaveDC Save(dc);
-	HBRUSH CenterBr = CreateSolidBrush(RGB(0, 0, 0));
+	HBRUSH CenterBr = CreateSolidBrush(RGB(10, 10, 10));
 	HBRUSH FrameBbr = CreateSolidBrush(RGB(39, 38, 46));
 
 	FillRect(dc.GetHdc(), &m_clRect.CenterRect, CenterBr);
 
 	DrawFrame(dc);
-	if (m_clModel->m_vtKLineDrawData.size() && m_clModel->m_vtKLineDrawPoint.size()) {
+	if (m_clModel->m_vtKLineDrawData.size() && m_clModel->m_vtKLineDrawPoint.size()) 
+	{
 		DrawBottomTime(dc);//画底部时间轴
 		DrawYAxisData(dc);//画Y轴
 		DrawContractName(dc);//画合约名称
 		DrawKLine(dc);//画K线
 		DrawLastPriceLine(dc);//画最新价横线
-		if (m_bShowCross) {
+		if (m_bShowCross) 
+		{
 			DrawCross(dc);
 		}
 		//阻力位、压力位、更新时间点，策略趋势
-		if (m_clModel->m_httpData.articleID && m_clModel->m_httpData.valid) {
+		if (m_clModel->m_httpData.articleID && m_clModel->m_httpData.valid) 
+		{
 			DrawTrend(dc);
 		}
 	}
-	FrameRect(dc.GetHdc(), &m_clRect.LeftRect, FrameBbr);
+	//屏蔽修改划线
+	//FrameRect(dc.GetHdc(), &m_clRect.LeftRect, FrameBbr);
 	RECT r = { 0 };
 	GetClientRect(m_Hwnd, &r);
-	FrameRect(dc.GetHdc(), &r, FrameBbr);
+	//FrameRect(dc.GetHdc(), &r, FrameBbr);
 	DeleteObject(FrameBbr);
 	DeleteObject(CenterBr);
 }
@@ -96,8 +112,8 @@ void KLineView::DrawFrame(TMemDC& dc)
 	SelectObject(dc.GetHdc(), KLineFramePen);
 	FrameRect(dc.GetHdc(), &m_clRect.CenterRect, KLineFrameBr);
 
-	MoveToEx(dc.GetHdc(), 0, m_clRect.TopRect.bottom, NULL);
-	LineTo(dc.GetHdc(), m_clRect.TopRect.right, m_clRect.TopRect.bottom);
+	//MoveToEx(dc.GetHdc(), 0, m_clRect.TopRect.bottom, NULL);
+	//LineTo(dc.GetHdc(), m_clRect.TopRect.right, m_clRect.TopRect.bottom);
 	DeleteObject(KLineFramePen);
 	DeleteObject(KLineFrameBr);
 }
@@ -105,33 +121,37 @@ void KLineView::DrawYAxisData(TMemDC& dc)
 {
 	KLineSaveDC Save(dc);
 	SetBkMode(dc.GetHdc(), TRANSPARENT);
-	HPEN linePen = CreatePen(PS_DASH, 0.2, KLineFrameColor);
+	HPEN linePen = CreatePen(PS_SOLID, 0.2, KLineFrameColor);
 	SelectObject(dc.GetHdc(), linePen);
-	SelectObject(dc.GetHdc(), g_FontData.GetFontNum13());
+	SelectObject(dc.GetHdc(), g_FontData.GetFontWord12());
 	SetTextColor(dc.GetHdc(), KLineFontNumberColor);
 	SPriceStrType wtext;
 	SIZE size; 
 	RECT r = m_clRect.LeftRect;
 	SPriceType high = m_clModel->m_dMaxPrice;
 	
+	//画X坐标顶轴
 	g_pQuoteApi->FormatPrice(high, m_clModel->m_KContract.pContract->Commodity, wtext, false, false);
 	GetTextExtentPointA(dc.GetHdc(), wtext, strlen(wtext), &size);
-	r.left = r.right - size.cx;
+	r.left = r.right - size.cx - 8;
 	r.bottom = r.top + size.cy;
 	DrawTextA(dc.GetHdc(), wtext, strlen(wtext), &r, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 	MoveToEx(dc.GetHdc(), r.right, r.top , NULL);
 	LineTo(dc.GetHdc(), m_clRect.CenterKLineRect.right, r.top);
 
+	//画X坐标底轴
 	SPriceType low = m_clModel->m_dMinPrice;
 	r = m_clRect.LeftRect;
 	g_pQuoteApi->FormatPrice(low, m_clModel->m_KContract.pContract->Commodity, wtext,false,  false);
 	GetTextExtentPointA(dc.GetHdc(), wtext, strlen(wtext), &size);
-	r.left = r.right - size.cx;
+	r.left = r.right - size.cx - 8;
 	r.top = r.bottom - size.cy;
 	DrawTextA(dc.GetHdc(), wtext, strlen(wtext), &r, DT_LEFT | DT_SINGLELINE | DT_VCENTER);
 	MoveToEx(dc.GetHdc(), r.right, r.bottom, NULL);
 	LineTo(dc.GetHdc(), m_clRect.CenterKLineRect.right, r.bottom);
 
+	HPEN dotLinePen = CreatePen(PS_DOT, 0.2, KLineFrameColor);
+	SelectObject(dc.GetHdc(), dotLinePen);
 	r = m_clRect.LeftRect;
 	SPriceType mid = (high + low) / 2;
 	DrawAxisPrice(dc, r, mid);
@@ -140,6 +160,7 @@ void KLineView::DrawYAxisData(TMemDC& dc)
 	SPriceType midLow = (mid + low) / 2;
 	DrawAxisPrice(dc, r, midLow);
 
+	DeleteObject(dotLinePen);
 	DeleteObject(linePen);
 }
 void KLineView::DrawAxisPrice(TMemDC& dc, RECT r, SPriceType price)
@@ -148,7 +169,7 @@ void KLineView::DrawAxisPrice(TMemDC& dc, RECT r, SPriceType price)
 	SIZE size;
 	g_pQuoteApi->FormatPrice(price, m_clModel->m_KContract.pContract->Commodity, wtext, false, false);
 	GetTextExtentPointA(dc.GetHdc(), wtext, strlen(wtext), &size);
-	r.left = r.right - size.cx;
+	r.left = r.right - size.cx - 8;
 	int y = m_clModel->GetYPosByPrice(price);
 	r.top = y - size.cy / 2;
 	r.bottom = y + size.cy / 2;
@@ -177,9 +198,10 @@ void KLineView::DrawBottomTime(TMemDC& dc)
 	KLineSaveDC Save(dc);
 	SetBkMode(dc.GetHdc(), TRANSPARENT);
 	RECT r = m_clRect.BottomRect;
-	SelectObject(dc.GetHdc(), g_FontData.GetFontNum13());
+	SelectObject(dc.GetHdc(), g_FontData.GetFontWord12());
 	SetTextColor(dc.GetHdc(), KLineFontNumberColor);
-	if (m_clModel->m_vtKLineDrawData.size() >= 0) {
+	if (m_clModel->m_vtKLineDrawData.size() >= 0) 
+	{
 		int index = 0;
 		DrawTime(dc, r, index);
 		index = m_clModel->m_vtKLineDrawPoint.size() / 2;
@@ -196,13 +218,16 @@ void KLineView::DrawTime(TMemDC& dc, RECT r, int index)
 	KLinePoint pos = m_clModel->m_vtKLineDrawPoint.at(index);
 	KLineUtil::GetDrawTime(d, wtext, sizeof(wtext)/ sizeof(wchar_t));
 	GetTextExtentPoint(dc.GetHdc(), wtext, wcslen(wtext), &size);
-	if (index == 0) {
+	if (index == 0) 
+	{
 		r.left = r.right - size.cx;
 	}
-	else if (index == m_clModel->m_vtKLineDrawData.size() - 1) {
+	else if (index == m_clModel->m_vtKLineDrawData.size() - 1) 
+	{
 		r.right = r.left + size.cx;
 	}
-	else {
+	else 
+	{
 		r.left = pos.x - size.cx / 2;
 		r.right = r.left + size.cx;
 	}
@@ -264,43 +289,44 @@ void KLineView::DrawLastPriceLine(TMemDC& dc)
 
 	DeleteObject(lastPricePen);
 }
+
 void KLineView::DrawTCRSLine(TMemDC& dc)
 {
 	KLineSaveDC Save(dc);
-	HPEN redPen = CreatePen(PS_SOLID, 1, KLineRedColor);
-	HPEN greenPen = CreatePen(PS_SOLID, 1, KLineGreenColor);
-	HPEN bluePen = CreatePen(PS_SOLID, 1, KlineBlueColor);
+	HPEN redPen = CreatePen(PS_DOT, 1, KLineRedColor);
+	HPEN greenPen = CreatePen(PS_DOT, 1, KLineGreenColor);
+	HPEN bluePen = CreatePen(PS_DOT, 1, KlineBlueColor);
 	
 	
-	SelectObject(dc.GetHdc(), g_FontData.g_FontNum15);
+	SelectObject(dc.GetHdc(), g_FontData.g_FontWord12);
 	SetBkMode(dc.GetHdc(), TRANSPARENT);
 	SelectObject(dc.GetHdc(), greenPen);
 	SetTextColor(dc.GetHdc(), KLineGreenColor);
-	DrawResSupLine(dc, m_clModel->m_httpData.res2, "Res2: ");
-	DrawResSupLine(dc, m_clModel->m_httpData.res3, "Res3: ");
+	DrawResSupLine(dc, m_clModel->m_httpData.res2, "RES2: ");
+	DrawResSupLine(dc, m_clModel->m_httpData.res3, "RES3: ");
 
 
 	SelectObject(dc.GetHdc(), redPen);
 	SetTextColor(dc.GetHdc(), KLineRedColor);
-	DrawResSupLine(dc, m_clModel->m_httpData.sup2, "Sup2: ");
-	DrawResSupLine(dc, m_clModel->m_httpData.sup3, "Sup3: ");
+	DrawResSupLine(dc, m_clModel->m_httpData.sup2, "SUP2: ");
+	DrawResSupLine(dc, m_clModel->m_httpData.sup3, "SUP3: ");
 
 
 	SelectObject(dc.GetHdc(), bluePen);
 	SetTextColor(dc.GetHdc(), KlineBlueColor);
-	DrawResSupLine(dc, m_clModel->m_httpData.pivot, "Pivot: ");
+	DrawResSupLine(dc, m_clModel->m_httpData.pivot, "PIVOT: ");
 
 
 
 	if (m_clModel->m_httpData.pivot == m_clModel->m_httpData.sup1) {
 		SelectObject(dc.GetHdc(), greenPen);
 		SetTextColor(dc.GetHdc(), KLineGreenColor);
-		DrawResSupLine(dc, m_clModel->m_httpData.res1, "Res1: ");
+		DrawResSupLine(dc, m_clModel->m_httpData.res1, "RES1: ");
 	}
 	else {
 		SelectObject(dc.GetHdc(), redPen);
 		SetTextColor(dc.GetHdc(), KLineRedColor);
-		DrawResSupLine(dc, m_clModel->m_httpData.sup1, "Sup1: ");
+		DrawResSupLine(dc, m_clModel->m_httpData.sup1, "SUP1: ");
 	}
 	
 
@@ -329,10 +355,37 @@ void KLineView::DrawTrend(TMemDC& dc)
 		to.x = m_clRect.CenterKLineRect.right;
 		//to.x = point.x;
 		to.y = yTo;
-		KLineUtil::NewDrawTrend(dc, point, to, up);
+		//KLineUtil::NewDrawTrend(dc, point, to, up);
 
-
+		POINT imagePoint = { };
+		wstring imageName = L"";
+		KLineUtil::NewDrawTrendWithImage(point, to, up, imagePoint);
+		m_frmRect = { imagePoint.x,imagePoint.y,35,35 };
+		if (up)
+		{
+			imageName = UP_SMALL;
+			m_frmRect.Y -= 35;
+			if (m_clRect.CenterKLineRect.bottom - m_clRect.CenterKLineRect.top > 276)
+			{
+				imageName = UP_BIG;
+				m_frmRect.Height = 70;
+				m_frmRect.Y -= 35;
+			}
+		}
+		else
+		{
+			imageName = DOWN_SMALL;
+			if (m_clRect.CenterKLineRect.bottom - m_clRect.CenterKLineRect.top > 276)
+			{
+				imageName = DOWN_BIG;
+				m_frmRect.Height = 70;
+			}
+		}
+		//TMemDC memdc(m_Hwnd);
 		
+		GetImgeWithPath(imageName.c_str());
+		Gdiplus::Graphics graph(dc.GetHdc());
+		graph.DrawImage(m_Img, m_frmRect);
 
 
 		/*if (m_clModel->m_iTCTerm == 0) {
@@ -375,10 +428,25 @@ void KLineView::DrawResSupLine(TMemDC& dc, SPriceType price, std::string name)
 	RECT r = { m_clRect.LeftRect.right, y - size.cy, m_clRect.LeftRect.right + size.cx, y };
 	DrawTextA(dc.GetHdc(), showTemp, strlen(showTemp), &r, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
 }
+
+void KLineView::GetImgeWithPath(const wchar_t* imageName)
+{
+	GetCurrentDirectory(ARRAYSIZE(m_szImgFilePath), m_szImgFilePath);
+	lstrcat(m_szImgFilePath, ImageFilePath);
+	lstrcat(m_szImgFilePath, imageName);
+	m_Img = Gdiplus::Image::FromFile(m_szImgFilePath);
+
+	//TCHAR * cp_pos = wcsrchr(m_szImgFilePath, L'\\');
+	//if (0 != cp_pos)
+	//	cp_pos[1] = 0;
+	//wcscat_s(m_szImgFilePath, pszPath);
+}
+
 void KLineView::OnSize()
 {
 
 }
+
 void KLineView::InitChartRect(CRECT rect)
 {
 	//初始化内部Rect信息

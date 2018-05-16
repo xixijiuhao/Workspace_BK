@@ -49,9 +49,11 @@ public:
 	
 	HFONT g_FontWord12;//预冻结保证金
 	HFONT g_FontWord13;//录单、popwin、popwindate、内盘竖向买卖、Cbutton、
+	HFONT g_FontWord14;
 	HFONT g_FontWord15;//买卖跟盘
 
 	HFONT g_FontNum13;//持仓 价格
+	HFONT g_FontNum14;
 	HFONT g_FontNum15;//popwincode
 	HFONT g_FontNum19;
 	wstring g_FontWordName;
@@ -65,9 +67,11 @@ public:
 	
 	HFONT GetFontWord12(){ return g_FontWord12; };
 	HFONT GetFontWord13(){ return g_FontWord13; };
+	HFONT GetFontWord14() { return g_FontWord14; };
 	HFONT GetFontWord15(){ return g_FontWord15; };
 
 	HFONT GetFontNum13(){ return g_FontNum13; };
+	HFONT GetFontNum14() { return g_FontNum14; };
 	HFONT GetFontNum15(){ return g_FontNum15; };
 	HFONT GetFontNum19(){ return g_FontNum19; };
 	

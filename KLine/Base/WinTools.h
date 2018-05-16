@@ -189,7 +189,8 @@ public:
 
 	bool GetStatus(PDWORD pdwNumBytes, DWORD *pCompletionKey, OVERLAPPED **ppOverlapped, DWORD dwMilliseconds = INFINITE)
 	{
-		return FALSE != ::GetQueuedCompletionStatus(m_iocp, pdwNumBytes, pCompletionKey, ppOverlapped, dwMilliseconds);
+		return false;
+		//return FALSE != ::GetQueuedCompletionStatus(m_iocp, pdwNumBytes, pCompletionKey, ppOverlapped, dwMilliseconds);
 	}
 
 private:

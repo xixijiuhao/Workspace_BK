@@ -58,10 +58,10 @@ void KLineSelectTab::OnPaint()
 	TMemDC dc(m_Hwnd);
 	KLineSaveDC Save(dc);
 	SetBkMode(dc.GetHdc(), TRANSPARENT);
-	m_BackgroundBrush = CreateSolidBrush(RGB(39, 38, 46));
+	m_BackgroundBrush = CreateSolidBrush(RGB(38, 38, 46));
 	HBRUSH RectFrameBr = CreateSolidBrush(KLineFrameColor);
 	HBRUSH SelectBr = CreateSolidBrush(RGB(201, 51, 39));
-	SelectObject(dc.GetHdc(), g_FontData.GetFontWord13());
+	SelectObject(dc.GetHdc(), g_FontData.GetFontWord14());
 	
 	//Ìî³ä±³¾°É«
 	RECT r;
@@ -77,11 +77,18 @@ void KLineSelectTab::OnPaint()
 		DrawFocusRect(dc.GetHdc(), &m_vtRect[m_iHoverIndex]);
 	}
 	//»­Ñ¡ÖÐRect
-	if (m_iCurrIndex >= 0 && m_iCurrIndex <= m_vtRect.size() - 1) {
-		FillRect(dc.GetHdc(), &m_vtRect[m_iCurrIndex], SelectBr);
-	}
+	//if (m_iCurrIndex >= 0 && m_iCurrIndex <= m_vtRect.size() - 1) {
+	//	FillRect(dc.GetHdc(), &m_vtRect[m_iCurrIndex], SelectBr);
+	//}
 
-	for (int index = 0; index < m_wtext.size(); index++){
+	for (int index = 0; index < m_wtext.size(); index++)
+	{
+		if (m_iCurrIndex == index)
+		{
+			SetTextColor(dc.GetHdc(), RGB(255, 60, 56));
+			DrawText(dc.GetHdc(), m_wtext[index].c_str(), wcslen(m_wtext[index].c_str()), &m_vtRect[index], DT_CENTER | DT_SINGLELINE | DT_VCENTER);
+			continue;
+		}
 		SetTextColor(dc.GetHdc(), g_ColorRefData.GetColorWhite());
 		DrawText(dc.GetHdc(), m_wtext[index].c_str(), wcslen(m_wtext[index].c_str()), &m_vtRect[index], DT_CENTER | DT_SINGLELINE | DT_VCENTER);
 	}
@@ -89,6 +96,7 @@ void KLineSelectTab::OnPaint()
 	DeleteObject(RectFrameBr);
 	DeleteObject(SelectBr);
 }
+
 void KLineSelectTab::OnMouseMove(WPARAM wParam, LPARAM lParam)
 {
 	TrackMouse();

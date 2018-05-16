@@ -58,15 +58,17 @@ extern LanguageID		g_language;
 
 enum StrID
 {
-	HighFrequencyStrID = 0,
-	IntradayStrID,
-	ShortTermStrID,
-	MidTermStrID,
-	TitleStrID,
-	CommodityStrID,
-	ForeignExchangeStrID,
-	NoDataTipStrID,
-	GettingDataStrID
+	HighFrequencyStrID = 0,   //"0","高频15Min
+	IntradayStrID, 			  //"1","当日30Min"
+	ShortTermStrID,			  //"2","短期1Day"
+	MidTermStrID,			  //"3","中期1Week"
+	TitleStrID,				  //"4","TradeCenter策略"
+	CommodityStrID,			  //"5","商品"
+	ForeignExchangeStrID,	  //"6","外汇"
+	NoDataTipStrID,			  //"7","TradeCenter数据源暂时没有该商品分析，请稍后重试"
+	GettingDataStrID,		  //"8","正在获取TradeCenter数据……"
+	InternalID,				  //"9","内盘"
+	ExternalID				  //"10","外盘"
 };
 
 

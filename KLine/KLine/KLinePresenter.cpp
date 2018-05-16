@@ -1,8 +1,10 @@
 #include "BaseInclude.h"
 vector<KLinePresenter*> g_pOrderVec;
 typedef wchar_t path[101];
-path FILEPATH[2] = {
-L"\\config\\TC\\TC_Commodity.pri",
+path FILEPATH[3] = {
+//L"\\config\\TC\\TC_Commodity.pri",
+L"\\config\\TC\\TC_Internal.pri",
+L"\\config\\TC\\TC_External.pri",
 L"\\config\\TC\\TC_Foreign_Currency.pri" };
 
 //修改读取文件、初始化ShowsubView初始化ListViewMap
@@ -43,8 +45,8 @@ KLinePresenter::KLinePresenter():m_bFirstInitData(false), m_iHttpTimerID(0)
 	if (m_vtFav.size() > 0) {
 		m_KContract = m_vtFav[0];
 	}
-	else if (m_vtCom.size() > 0) {
-		m_KContract = m_vtCom[0];
+	else if (m_vtInternalCom.size() > 0) {
+		m_KContract = m_vtInternalCom[0];
 	}
 }
 
@@ -102,8 +104,9 @@ void KLinePresenter::ShowSubView(MainFrmRect &rect)
 	m_KLineIntroduct->CreateView(m_MainFrm->GetHwnd(), KLineUtil::CRectToRect(rect.IntroductRect));
 	//RightList
 	std::map<int, std::vector<KContract>> list;
-	list.insert(std::make_pair(0, m_vtCom));
-	list.insert(std::make_pair(1, m_vtForCur));
+	list.insert(std::make_pair(0, m_vtInternalCom));
+	list.insert(std::make_pair(1, m_vtExternalCom));
+	list.insert(std::make_pair(2, m_vtForCur));
 	m_KListView->SetTotalData(list);
 	m_KListView->CreateView(m_MainFrm->GetHwnd(), KLineUtil::CRectToRect(rect.CommodityListRect));
 }
@@ -149,23 +152,33 @@ void KLinePresenter::LoadFileData()
 			
 			int icount = g_pQuoteApi->GetContractData("", Qcom.c_str(), contract, 1, false);
 			//区分主力合约和非主力合约
-			if (icount) {
+			if (icount) 
+			{
 				strcpy_s(KCon.SubContractNo, Qcom.c_str());
 				underLay = g_pQuoteApi->GetContractUnderlay(contract[0]->ContractNo);
-				if (underLay) {
+				if (underLay) 
+				{
 					KCon.pContract = underLay;
 				}
-				else {
+				else 
+				{
 					KCon.pContract = contract[0];
 				}
 				strcpy_s(KCon.TCTicker, sizeof(KCon.TCTicker), TCcom.c_str());
-				if (index == 0) {
-					wcsncpy_s(KCon.plate, g_pLanguageApi->LangText(CommodityStrID), sizeof(KCon.plate));
+				if (index == 0) 
+				{
+					wcsncpy_s(KCon.plate, g_pLanguageApi->LangText(InternalID), sizeof(KCon.plate));
 				}
-				else if (index == 1) {
+				else if (index == 1) 
+				{
+					wcsncpy_s(KCon.plate, g_pLanguageApi->LangText(ExternalID), sizeof(KCon.plate));
+				}
+				else if (index == 2) 
+				{
 					wcsncpy_s(KCon.plate, g_pLanguageApi->LangText(ForeignExchangeStrID), sizeof(KCon.plate));
 				}
-				else {
+				else 
+				{
 					wcsncpy_s(KCon.plate, L"", sizeof(KCon.plate));
 				}
 				char temp[101] = { 0 };
@@ -176,11 +189,20 @@ void KLinePresenter::LoadFileData()
 				code = CConvert::UTF8ToUnicode(temp);
 				swprintf_s(KCon.contractWName, L"%s", code.c_str());
 				swprintf_s(KCon.contractShowName, L"%s / %s", KCon.contractWName, KCon.contractCode);
-				if (index == 0){
-					m_vtCom.push_back(KCon);
-				}else if (index == 1){
+				if (index == 0)
+				{
+					m_vtInternalCom.push_back(KCon);
+				}
+				else if (index == 1)
+				{
+					m_vtExternalCom.push_back(KCon);
+				}
+				else if (index == 2) 
+				{
 					m_vtForCur.push_back(KCon);
-				}else if (index == 2) {
+				}
+				else if (index == 3)
+				{
 					m_vtForCur.push_back(KCon);
 				}
 			}

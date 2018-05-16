@@ -42,6 +42,8 @@ private:
 	std::vector<KContract>		m_vtForCur;			//外汇品种
 	std::vector<KContract>		m_vtCom;			//商品品种
 	std::vector<KContract>		m_vtFav;			//自选品种
+	std::vector<KContract>		m_vtInternalCom;			//内盘品种
+	std::vector<KContract>		m_vtExternalCom;			//外盘品种
 	KContract					m_KContract;		//当前选中合约信息
 	BOOL						m_bFirstInitData;	//是否初始化
 	int							m_iHttpTimerID;		//定时器ID

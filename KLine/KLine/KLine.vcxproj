@@ -77,6 +77,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\Debug_28\plugins\TradeCenterKLine</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <TargetName>TradeCenterKLine</TargetName>
+    <IncludePath>../Main;../Popup;../TradeSpi;../LoadRC;../Control;../Export;./;../Base;../../Include;../Xml;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

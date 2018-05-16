@@ -24,12 +24,12 @@ void G_COLOREF::Init()
 void G_UIFONT::Init(LANGID LanguageID)
 {
 	wstring sWord = TEXT(""), sNum = TEXT("");
-	if (IsFontExit(TEXT("ËÎÌå")))
-		sWord = TEXT("ËÎÌå");
+	if (IsFontExit(TEXT("Î¢ÈíÑÅºÚ")))
+		sWord = TEXT("Î¢ÈíÑÅºÚ");
 	else
 		sWord = TEXT("MS Shell Dlg");
-	if (IsFontExit(TEXT("Calibri")))
-		sNum = TEXT("Calibri");
+	if (IsFontExit(TEXT("Î¢ÈíÑÅºÚ")))
+		sNum = TEXT("Î¢ÈíÑÅºÚ");
 	else
 		sNum = TEXT("MS Shell Dlg");
 
@@ -39,10 +39,12 @@ void G_UIFONT::Init(LANGID LanguageID)
 		g_FontNumName = sNum;
 		g_FontWord12 = CreateFont(-12, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
 		g_FontWord13 = CreateFont(-13, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
+		g_FontWord14 = CreateFont(-14, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
 		g_FontWord15 = CreateFont(-16, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
 
 
 		g_FontNum13 = CreateFont(-13, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
+		g_FontNum14 = CreateFont(-14, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
 		g_FontNum15 = CreateFont(-15, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
 		
 		g_FontNum19 = CreateFont(-19, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
@@ -51,11 +53,13 @@ void G_UIFONT::Init(LANGID LanguageID)
 	{
 		g_FontWordName = sWord;
 		g_FontNumName = sNum;
-		g_FontWord12 = CreateFont(-11, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
-		g_FontWord13 = CreateFont(-13, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
+		g_FontWord12 = CreateFont(-11, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
+		g_FontWord13 = CreateFont(-13, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
+		g_FontWord14 = CreateFont(-14, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
 		g_FontWord15 = CreateFont(-16, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sWord.c_str());
 
 		g_FontNum13 = CreateFont(-13, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
+		g_FontNum14 = CreateFont(-14, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
 		g_FontNum15 = CreateFont(-15, 0, 0, 0, 0, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
 		g_FontNum19 = CreateFont(-19, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 0, 0, sNum.c_str());
 	}
