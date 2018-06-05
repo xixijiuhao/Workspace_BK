@@ -69,11 +69,20 @@ LRESULT KListView::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEWHEEL:
 		OnMouseWheel(wParam, lParam);
 		break;
+	case WM_SETFOCUS:
+		OnDealSetFocus();
+		break;
 	default:
 		break;
 	}
 	return NOT_PROCESSED;
 }
+
+void KListView::OnDealSetFocus()
+{
+	InvalidateRect(m_Hwnd, NULL, TRUE);
+}
+
 void KListView::OnSize(WPARAM wParam, LPARAM lParam)
 {
 	m_iWidth = GET_X_LPARAM(lParam);
@@ -289,6 +298,7 @@ void KListView::PrepareItemTotalData()
 void KListView::OnMouseMove(WPARAM wParam, LPARAM lParam)
 {
 	TrackMouse();
+	SetFocus(m_Hwnd);
 	POINT pt;
 	pt.x = LOWORD(lParam);
 	pt.y = HIWORD(lParam);
@@ -383,7 +393,6 @@ void KListView::OnMouseWheel(WPARAM wParam, LPARAM lParam)
 			m_scrollRect.bottom = m_frameRect.bottom;
 			m_scrollRect.top = m_scrollRect.bottom - 120;
 		}
-
 	}
 	else
 	{
@@ -409,20 +418,24 @@ void KListView::TrackMouse()
 bool KListView::GetHoverIndex(POINT point)
 {
 	bool update = false;
-	if (PtInRect(&m_headerRect, point)) {
+	if (PtInRect(&m_headerRect, point)) 
+	{
 		for (int index = 0 ; index < m_vtHeaderRect.size(); index++)
 		{
-			if (PtInRect(&m_vtHeaderRect[index], point)) {
+			if (PtInRect(&m_vtHeaderRect[index], point)) 
+			{
 				m_iheaderHoverIndex = index;
 				update = true;
 				break;
 			}
 		}
-	}else if (PtInRect(&m_itemRect, point))
+	}
+	else if (PtInRect(&m_itemRect, point))
 	{
 		for (int index = 0; index < m_vtItemRect.size(); index++)
 		{
-			if (PtInRect(&m_vtItemRect[index], point)) {
+			if (PtInRect(&m_vtItemRect[index], point)) 
+			{
 				m_itemHoverIndex = index;
 				update = true;
 				break;

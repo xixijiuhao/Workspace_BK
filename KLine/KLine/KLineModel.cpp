@@ -284,17 +284,20 @@ void KLineModel::GetHttpData(TCProduct product, TCTerm term, GetHttpType type)
 		strcpy_s(params.culture, sizeof(params.culture), TC_en_US);
 	}
 	
-	if (type == AsynGetAll) {
+	if (type == AsynGetAll) 
+	{
 		//异步请求全部数据
 		m_httpTool.AsynGetAllInterNetURLText();
 	}
-	else if (type == SynGet) {
+	else if (type == SynGet) 
+	{
 		//同步请求数据,请求之前先将valid置为false
 		m_httpData.valid = false;
 		m_httpTool.GetInterNetURLText(params, m_httpData, m_IntroductText);
 		UpdateSubData(true);
 		m_clPreseter->UpdateKLineView();
-	}else if (type == AsynGet)
+	}
+	else if (type == AsynGet)
 	{
 		//异步请求单组数据
 		m_httpData.valid = false;

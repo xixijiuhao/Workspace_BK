@@ -10,6 +10,7 @@ public:
 protected:
 	virtual LRESULT WndProc(UINT message, WPARAM wParam, LPARAM lParam);
 	void __stdcall OnHisQuote(const SContractNoType contractno, const SKLineTypeType klinetype, const SSessionIdType sessionid);
+	void __stdcall OnHisQuoteTimeLine(const C8[], const SDateType, const SSessionIdType) {};
 	//历史波动率通知 仅通知数据结束变化，使用get函数获取数据
 	void __stdcall OnHisVolatility(const SContractNoType contractno, const SKLineTypeType klinetype, const SSessionIdType sessionid) {};
 public:

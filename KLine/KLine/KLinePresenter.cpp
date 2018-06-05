@@ -80,7 +80,7 @@ KLineModel* KLinePresenter::getKLineModel()
 void KLinePresenter::OnMenuClick(const unsigned int MenuIndex, const HWND PastLife)
 {
 	//new一个Presenter对象，在构造函数里会new Model类 和 View类 并新建线程从http中获取数据
-	KLinePresenter* present = new KLinePresenter;
+	KLinePresenter* present = new KLinePresenter();
 
 	present->getKLineModel()->SetKContract(present->GetKContract());
 	present->m_iHttpTimerID = 1;
@@ -258,19 +258,23 @@ void KLinePresenter::OnTabChange(int index)
 	if (m_KLineModel->m_iTCTerm != index)
 	{
 		m_KLineModel->m_iTCTerm = index;
-		if (m_KLineModel->m_iTCTerm == 0) {
+		if (m_KLineModel->m_iTCTerm == 0) 
+		{
 			KLineUtil::SetKLineType(S_KLINE_MINUTE);
 			KLineUtil::SetKLineSlice(KLine_Min15);
 		}
-		else if (m_KLineModel->m_iTCTerm == 1) {
+		else if (m_KLineModel->m_iTCTerm == 1) 
+		{
 			KLineUtil::SetKLineType(S_KLINE_MINUTE);
 			KLineUtil::SetKLineSlice(KLine_Min30);
 		}
-		else if (m_KLineModel->m_iTCTerm == 2) {
+		else if (m_KLineModel->m_iTCTerm == 2) 
+		{
 			KLineUtil::SetKLineType(S_KLINE_DAY);
 			KLineUtil::SetKLineSlice(KLine_Day);
 		}
-		else if (m_KLineModel->m_iTCTerm == 3) {
+		else if (m_KLineModel->m_iTCTerm == 3) 
+		{
 			KLineUtil::SetKLineType(S_KLINE_DAY);
 			KLineUtil::SetKLineSlice(KLine_Day7);
 		}

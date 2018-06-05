@@ -52,6 +52,7 @@ private:
 	void OnMouseWheel(WPARAM wParam, LPARAM lParam);
 	void TrackMouse();
 	bool GetHoverIndex(POINT point);
+	void OnDealSetFocus();
 private:
 	int					m_iItemHeight;		//单个Item高度
 	int					m_iHeaderHeight;	//Header高度

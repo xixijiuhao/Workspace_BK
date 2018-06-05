@@ -316,9 +316,9 @@ void CConvert::GetSwapPositionVol(const char * UserNo, TContractSingleKey &SigCo
 //正则表达式匹配
 bool CConvert::MatchPattern(const char *pattern, const char *target)//正则匹配
 {
-	std::tr1::cmatch res;
-	std::tr1::regex rx(pattern);
-	std::tr1::regex_search(target, res, rx);
+	cmatch res;
+	regex rx(pattern);
+	regex_search(target, res, rx);
 	return !res.empty();
 }
 

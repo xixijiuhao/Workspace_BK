@@ -62,13 +62,13 @@ LRESULT KLineIntroductView::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		OnPaint();
 		break;
-		/*case WM_MOUSEMOVE:
-			OnMouseMove(wParam, lParam);
-			break;
-		case WM_MOUSELEAVE:
-			OnMouseLeave();
-			break;
-		case WM_LBUTTONDOWN:
+	case WM_MOUSEMOVE:
+		OnMouseMove(wParam, lParam);
+		break;
+	case WM_MOUSELEAVE:
+		OnMouseLeave();
+		break;
+		/*case WM_LBUTTONDOWN:
 			OnLButtonDown(wParam, lParam);
 			break;
 		case WM_LBUTTONUP:
@@ -77,10 +77,18 @@ LRESULT KLineIntroductView::WndProc(UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEWHEEL:
 		OnMouseWheel(wParam, lParam);
 		break;
+	case WM_SETFOCUS:
+		OnDealSetFocus();
+		break;
 	default:
 		break;
 	}
 	return NOT_PROCESSED;
+}
+
+void KLineIntroductView::OnDealSetFocus()
+{
+	InvalidateRect(m_Hwnd, NULL, TRUE);
 }
 
 void KLineIntroductView::OnSize(WPARAM wParam, LPARAM lParam)
@@ -158,13 +166,14 @@ void KLineIntroductView::OnLButtonDown(WPARAM wParam, LPARAM lParam)
 void KLineIntroductView::OnMouseMove(WPARAM wParam, LPARAM lParam)
 {
 	TrackMouse();
-	POINT pt;
-	pt.x = LOWORD(lParam);
-	pt.y = HIWORD(lParam);
+	SetFocus(m_Hwnd);
+	//POINT pt;
+	//pt.x = LOWORD(lParam);
+	//pt.y = HIWORD(lParam);
 
-	if (m_bMousetrack) {
-		//m_ScrollRect.top = 
-	}
+	//if (m_bMousetrack) {
+	//	//m_ScrollRect.top = 
+	//}
 }
 
 void KLineIntroductView::OnLButtonUp(WPARAM wParam, LPARAM lParam)

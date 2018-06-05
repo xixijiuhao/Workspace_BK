@@ -22,13 +22,13 @@
     <ProjectGuid>{642638BF-7F00-44F3-B136-F4D77A0D757A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>KLine</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -72,12 +72,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>../Main;../Popup;../TradeSpi;../LoadRC;../Control;../Export;./;../Base;../../Include;../Xml;$(IncludePath)</IncludePath>
-    <OutDir>..\..\Debug_28\plugins\TradeCenterKLine</OutDir>
+    <OutDir>..\..\Debug_29\plugins\TradeCenterKLine</OutDir>
     <TargetName>TradeCenterKLine</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\Debug_28\plugins\TradeCenterKLine</OutDir>
+    <OutDir>..\..\Debug_29\plugins\TradeCenterKLine</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <TargetName>TradeCenterKLine</TargetName>
     <IncludePath>../Main;../Popup;../TradeSpi;../LoadRC;../Control;../Export;./;../Base;../../Include;../Xml;$(IncludePath)</IncludePath>

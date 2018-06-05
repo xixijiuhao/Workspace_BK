@@ -17,6 +17,7 @@ private:
 	void OnMouseMove(WPARAM wParam, LPARAM lParam);
 	void OnMouseLeave();
 	void TrackMouse();
+	void OnDealSetFocus();
 private:
 	std::vector<string>	m_vtText;//每行有Index
 	std::vector<string>	m_vtFirstColText;//每行有Index

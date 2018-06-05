@@ -69,6 +69,12 @@ void KLineView::OnCreate()
 {
 
 }
+
+void KLineView::OnDealSetFocus()
+{
+	InvalidateRect(m_Hwnd, NULL, TRUE);
+}
+
 void KLineView::OnPaint()
 {
 	TMemDC dc(m_Hwnd);
@@ -257,14 +263,16 @@ void KLineView::DrawKLine(TMemDC& dc)
 			MoveToEx(dc.GetHdc(), point.x + iKLineWidth / 2, point.OpenY, NULL);
 			LineTo(dc.GetHdc(), point.x + iKLineWidth / 2, point.LowY);
 		}
-		else if(data.QLastPrice < data.QOpeningPrice){
+		else if(data.QLastPrice < data.QOpeningPrice)
+		{
 			RECT rc = { point.x, point.OpenY,  point.x + iKLineWidth, point.CloseY };
 			SelectObject(dc.GetHdc(), KLineDownPen);
 			FillRect(dc.GetHdc(), &rc, KLineDownBr);
 			MoveToEx(dc.GetHdc(), point.x + iKLineWidth / 2, point.HighY, NULL);
 			LineTo(dc.GetHdc(), point.x + iKLineWidth / 2, point.LowY);
 		}
-		else if (data.QLastPrice == data.QOpeningPrice) {
+		else if (data.QLastPrice == data.QOpeningPrice) 
+		{
 			SelectObject(dc.GetHdc(), KLineDownPen);
 			MoveToEx(dc.GetHdc(), point.x + iKLineWidth / 2, point.HighY, NULL);
 			LineTo(dc.GetHdc(), point.x + iKLineWidth / 2, point.LowY);
@@ -356,60 +364,34 @@ void KLineView::DrawTrend(TMemDC& dc)
 		//to.x = point.x;
 		to.y = yTo;
 		//KLineUtil::NewDrawTrend(dc, point, to, up);
+		//POINT imagePoint = { };
+		//KLineUtil::NewDrawTrendWithImage(point, to, up, imagePoint);
 
-		POINT imagePoint = { };
 		wstring imageName = L"";
-		KLineUtil::NewDrawTrendWithImage(point, to, up, imagePoint);
-		m_frmRect = { imagePoint.x,imagePoint.y,35,35 };
+		m_frmRect = { point.x + KLineUtil::GetKLineWidth() * 2 , yTo,36,36 };
 		if (up)
 		{
 			imageName = UP_SMALL;
-			m_frmRect.Y -= 35;
 			if (m_clRect.CenterKLineRect.bottom - m_clRect.CenterKLineRect.top > 276)
 			{
 				imageName = UP_BIG;
-				m_frmRect.Height = 70;
-				m_frmRect.Y -= 35;
+				m_frmRect.Height = 72;
 			}
 		}
 		else
 		{
 			imageName = DOWN_SMALL;
+			m_frmRect.Y -= 36;
 			if (m_clRect.CenterKLineRect.bottom - m_clRect.CenterKLineRect.top > 276)
 			{
 				imageName = DOWN_BIG;
-				m_frmRect.Height = 70;
+				m_frmRect.Y -= 36;
+				m_frmRect.Height = 72;
 			}
 		}
-		//TMemDC memdc(m_Hwnd);
-		
 		GetImgeWithPath(imageName.c_str());
 		Gdiplus::Graphics graph(dc.GetHdc());
 		graph.DrawImage(m_Img, m_frmRect);
-
-
-		/*if (m_clModel->m_iTCTerm == 0) {
-			KLineUtil::DrawTrend(dc, point, m_clModel->m_httpData.optionST, false);
-		}
-		else if (m_clModel->m_iTCTerm == 1) {
-			//画压力线和阻力线
-			DrawTCRSLine(dc);
-			//画箭头
-			KLineUtil::DrawTrend(dc, point, m_clModel->m_httpData.optionST, false);
-		}
-		else if (m_clModel->m_iTCTerm == 2) {
-			//画压力线和阻力线
-			DrawTCRSLine(dc);
-			//画箭头
-			KLineUtil::DrawTrend(dc, point, m_clModel->m_httpData.optionST);
-		}
-		else if (m_clModel->m_iTCTerm == 3) {
-			//画压力线和阻力线
-			DrawTCRSLine(dc);
-			//画箭头
-			KLineUtil::DrawTrend(dc, point, m_clModel->m_httpData.optionMT);
-		}*/
-
 	}
 }
 void KLineView::DrawResSupLine(TMemDC& dc, SPriceType price, std::string name)

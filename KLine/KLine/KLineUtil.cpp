@@ -107,8 +107,8 @@ void KLineUtil::TCTimeToQuoteTime(char* tcDate, size_t dateSize, char* tcHour, s
 
 	char sDate[50] = { 0 };
 	sprintf_s(sDate, "%4d%02d%02d%02d%02d%02d%03d", iYear, iMonth, iDate, iHour, iMinute, 0, 0);
-	sprintf(tcDate, "%4d%02d%02d", iYear, iMonth, iDate);
-	sprintf(tcHour, "%2d:%02d", iHour, iMinute);
+	sprintf_s(tcDate, dateSize, "%4d%02d%02d", iYear, iMonth, iDate);
+	sprintf_s(tcHour, hourSize, "%2d:%02d", iHour, iMinute);
 	dateTime = atoll(sDate);
 }
 void KLineUtil::GetTCTerm(int index, char* term, int size)
@@ -251,6 +251,25 @@ void KLineUtil::NewDrawTrendWithImage(KLinePoint point, POINT to, bool up, POINT
 	int ArrawVap = 10;
 	int fromY = (point.CloseY + point.OpenY) / 2;
 	imagePoint = { point.x + KLineUtil::GetKLineWidth() * 2, fromY };
+	imagePoint.x = to.x - ArrawVap;
+
+	//int sliceX = to.x - point.x;
+	//int ArrawVap = 10;
+
+	//int fromY = (point.CloseY + point.OpenY) / 2;
+	//POINT ptFrom = { point.x + KLineUtil::GetKLineWidth() * 2, fromY };
+	//POINT ptTo = ptFrom;
+	//MoveToEx(dc.GetHdc(), ptFrom.x, ptFrom.y, NULL);
+	//ptTo.x = to.x - ArrawVap;
+	//if (up) {
+	//	ptTo.y = to.y + ArrawVap;
+	//}
+	//else {
+	//	ptTo.y = to.y - ArrawVap;
+	//}
+
+	//LineTo(dc.GetHdc(), ptTo.x, ptTo.y);
+
 	/*imagePoint.x = to.x - ArrawVap;*/
 	/*if (up)
 	{

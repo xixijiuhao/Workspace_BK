@@ -22,6 +22,7 @@ private:
 	void OnPaint();
 	void OnSize();
 	void InitChartRect(CRECT rect);
+	void OnDealSetFocus();
 public:
 	//´Î¼¶º¯Êý
 	void DrawTime(TMemDC& dc, RECT r, int index);
