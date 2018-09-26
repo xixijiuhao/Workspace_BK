@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="share">
+      <UniqueIdentifier>{fd9d1013-a3f6-41af-b810-fe7ad33fc143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="subset">
+      <UniqueIdentifier>{7660c38a-4599-4c9e-a18a-1848c9a943c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{f807baec-51ac-464f-b732-9721f98598e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="subwnd">
+      <UniqueIdentifier>{6e06e476-e21b-473a-87b7-ec279ede065c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shctl">
+      <UniqueIdentifier>{8ceee4b6-db4c-4c33-8f42-094f9a3a4fab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shctl\gridctrl">
+      <UniqueIdentifier>{0a235ef6-d0c7-4328-81ee-44ef0fe3f88f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="PreInclude.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Language.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="share\AnsicUnicode.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemFrame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\CspProtocol.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Subset\Global\load_rc.h">
+      <Filter>subset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\9.3Plug\Include\SpotSystem_API.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\9.3Plug\Include\SpotSystem_Struct.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\9.3Plug\Include\SpotSystem_Type.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="SendOrderWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\TListView.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\IxFrm.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\TMemDC.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\UIDesign.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="AddAgreementWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxCombox.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\TPopupWnd.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\TStaticButton.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxSpin.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxSpinEdit.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxEdit.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxSubClassWnd.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\TStatic.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxComboxTime.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecPriceWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\TMessageBox.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\TModalWnd.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="SettlePriceWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="CashInOutWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="FundWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="TaxWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="IntegrationWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="StatementWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AgreementWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="TLoginPopWnd.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\TStringConvert.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="MatchWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\Base\TradeQuoteString.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\popwincode.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="TAgreementPopWnd.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxRichEdit.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="AllAccountWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="PartAccountWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\9.3Plug\Include\TradeApi_Type.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\OrderButton.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="AddAgreementRelWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\CxCheck.h">
+      <Filter>shctl</Filter>
+    </ClInclude>
+    <ClInclude Include="AddManualCloseWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ModifyOrderWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AddMatchWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPositionWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFundWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="InstantPositionWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="ExposureWnd.h">
+      <Filter>subwnd</Filter>
+    </ClInclude>
+    <ClInclude Include="share\_trade_spi_switch.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\trade_spi.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\trade_spi_ex.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="share\trade_spi_switch.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridData.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridCellBase.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridHeaderCell.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\TDefine.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridCtrl.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="AccountBillListWnd.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\FilterList.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\MiniEdit.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\CellEdit.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridCursor.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridCheckCell.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridEditCell.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridComboxCell.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+    <ClInclude Include="shctl\GridCtrl\GridTreeCell.h">
+      <Filter>shctl\gridctrl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotHedgeSystemPlugin.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="share\AnsicUnicode.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemFrame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Subset\Global\load_rc.cpp">
+      <Filter>subset</Filter>
+    </ClCompile>
+    <ClCompile Include="SendOrderWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\TListView.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\IxFrm.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\TMemDC.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\UIDesign.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="AddAgreementWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxCombox.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\TPopupWnd.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\TStaticButton.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxSpin.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxSpinEdit.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxEdit.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxSubClassWnd.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\TStatic.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxComboxTime.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecPriceWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\TMessageBox.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\TModalWnd.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="SettlePriceWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="CashInOutWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="FundWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="TaxWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegrationWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="StatementWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AgreementWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="TLoginPopWnd.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\TStringConvert.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="MatchWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\Base\TradeQuoteString.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\popwincode.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="TAgreementPopWnd.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxRichEdit.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="AllAccountWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="PartAccountWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\OrderButton.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="AddAgreementRelWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\CxCheck.cpp">
+      <Filter>shctl</Filter>
+    </ClCompile>
+    <ClCompile Include="AddManualCloseWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="ModifyOrderWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AddMatchWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPositionWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFundWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="InstantPositionWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="ExposureWnd.cpp">
+      <Filter>subwnd</Filter>
+    </ClCompile>
+    <ClCompile Include="share\trade_spi_ex.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridData.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridCellBase.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridHeaderCell.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridCtrl.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="AccountBillListWnd.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\FilterList.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\MiniEdit.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\CellEdit.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridCursor.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridCheckCell.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridEditCell.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridComboxCell.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+    <ClCompile Include="shctl\GridCtrl\GridTreeCell.cpp">
+      <Filter>shctl\gridctrl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SpotHedgeSystem.def">
+      <Filter>源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpotHedgeSystem.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
