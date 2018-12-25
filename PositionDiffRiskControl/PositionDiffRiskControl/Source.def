@@ -1,7 +1,0 @@
-LIBRARY
-
-EXPORTS
-	OnPluginLoad
-	OnPluginInit
-	CreatePluginApi
-	FreePluginApi

@@ -1,8 +1,0 @@
-LIBRARY
-
-EXPORTS
-    ; 此处可以是显式导出
-OnPluginLoad @1
-OnPluginInit @2
-CreatePluginApi @3
-FreePluginApi @4

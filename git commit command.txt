@@ -1,3 +1,0 @@
-git add .
-git commit -m "ĞŞ¸ÄÃèÊö"
-push -u origin master
