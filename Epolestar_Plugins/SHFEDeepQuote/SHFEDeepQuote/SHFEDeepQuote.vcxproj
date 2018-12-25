@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A79A51D1-651F-405A-B853-4D8838EE0C8C}</ProjectGuid>
+    <RootNamespace>SHFEDeepQuote</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\Debug\plugins\SHFEDeepQuote</OutDir>
+    <IncludePath>..\SHFEDeepQuote;..\..\Include;..\Tradespi;..\LoadRC;..\Export;..\Control;..\BaseFile;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib;$(VC_LibraryPath_x86);$(WindowsSdk_71A_LibraryPath_x86)</LibraryPath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
+    <LibraryWPath />
+    <ExcludePath>$(VC_IncludePath);$(WindowsSdk_71A_IncludePath);$(MSBuild_ExecutablePath);$(VC_LibraryPath_x86);</ExcludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\Release\plugins\SHFEDeepQuote</OutDir>
+    <IncludePath>F:\epolestar\SHFEDeepQuote\SHFEDeepQuote;F:\epolestar\Include;F:\epolestar\SHFEDeepQuote\Tradespi;F:\epolestar\SHFEDeepQuote\LoadRC;F:\epolestar\SHFEDeepQuote\Export;F:\epolestar\SHFEDeepQuote\Control;F:\epolestar\SHFEDeepQuote\BaseFile;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>../TradeSpi;./;../LoadRC;../Export;../Control;../BaseFile;../../Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\Release\third_part;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>MBLdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\BaseFile\IxFrm.cpp" />
+    <ClCompile Include="..\BaseFile\TDataContainer.cpp" />
+    <ClCompile Include="..\BaseFile\TMemDC.cpp" />
+    <ClCompile Include="..\BaseFile\TModalWnd.cpp" />
+    <ClCompile Include="..\BaseFile\TradeQuoteString.cpp" />
+    <ClCompile Include="..\BaseFile\UIDesign.cpp" />
+    <ClCompile Include="..\Control\popwincode.cpp" />
+    <ClCompile Include="..\Control\popwincodelist.cpp" />
+    <ClCompile Include="..\Control\TCheckbox.cpp" />
+    <ClCompile Include="..\Control\TCombox.cpp" />
+    <ClCompile Include="..\Control\TComboxList.cpp" />
+    <ClCompile Include="..\Control\TDateTime.cpp" />
+    <ClCompile Include="..\Control\TEdit.cpp" />
+    <ClCompile Include="..\Control\TListView.cpp" />
+    <ClCompile Include="..\Control\TLockBtn.cpp" />
+    <ClCompile Include="..\Control\TMessageBox.cpp" />
+    <ClCompile Include="..\Control\TOrderButton.cpp" />
+    <ClCompile Include="..\Control\TPinEdit.cpp" />
+    <ClCompile Include="..\Control\TPopupWnd.cpp" />
+    <ClCompile Include="..\Control\TStatic.cpp" />
+    <ClCompile Include="..\Control\TStaticButton.cpp" />
+    <ClCompile Include="..\Control\VirtualWnd.cpp" />
+    <ClCompile Include="..\Export\Export.cpp" />
+    <ClCompile Include="..\LoadRC\AnsicUnicode.cpp" />
+    <ClCompile Include="..\LoadRC\load_rc.cpp" />
+    <ClCompile Include="..\Tradespi\trade_spi_ex.cpp" />
+    <ClCompile Include="ColumnConfigView.cpp" />
+    <ClCompile Include="DeepQuoteData.cpp" />
+    <ClCompile Include="MBLSpiHandler.cpp" />
+    <ClCompile Include="TSHFEDeepQuoteFrm.cpp" />
+    <ClCompile Include="TSHFEDeepQuoteLoginFrm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Include\BatchOrder_API.h" />
+    <ClInclude Include="..\..\Include\BatchOrder_Struct.h" />
+    <ClInclude Include="..\..\Include\CommonModule_API.h" />
+    <ClInclude Include="..\..\Include\CommonModule_Struct.h" />
+    <ClInclude Include="..\..\Include\ConfigFrame_API.h" />
+    <ClInclude Include="..\..\Include\HisQuoteShell_API.h" />
+    <ClInclude Include="..\..\Include\LanguageApi_API.h" />
+    <ClInclude Include="..\..\Include\Logging_API.h" />
+    <ClInclude Include="..\..\Include\LoginFrm_API.h" />
+    <ClInclude Include="..\..\Include\MainFrame_API.h" />
+    <ClInclude Include="..\..\Include\OptionCalc_API.h" />
+    <ClInclude Include="..\..\Include\PluginMgr_API.h" />
+    <ClInclude Include="..\..\Include\RawTradeApi_API.h" />
+    <ClInclude Include="..\..\Include\RawTradeApi_Struct.h" />
+    <ClInclude Include="..\..\Include\RemedyTrade_API.h" />
+    <ClInclude Include="..\..\Include\StarApi_API.h" />
+    <ClInclude Include="..\..\Include\StarApi_TYPE.h" />
+    <ClInclude Include="..\..\Include\StrategyTrade_API.h" />
+    <ClInclude Include="..\..\Include\TradeApi_API.h" />
+    <ClInclude Include="..\..\Include\TradeApi_Struct.h" />
+    <ClInclude Include="..\..\Include\TradeApi_Type.h" />
+    <ClInclude Include="..\..\Include\TradeReport_API.h" />
+    <ClInclude Include="..\BaseFile\IxFrm.h" />
+    <ClInclude Include="..\BaseFile\MBLApi.h" />
+    <ClInclude Include="..\BaseFile\PreInclude.h" />
+    <ClInclude Include="..\BaseFile\share_struct.h" />
+    <ClInclude Include="..\BaseFile\TDataContainer.h" />
+    <ClInclude Include="..\BaseFile\TMemDC.h" />
+    <ClInclude Include="..\BaseFile\TModalWnd.h" />
+    <ClInclude Include="..\BaseFile\TradeQuoteString.h" />
+    <ClInclude Include="..\BaseFile\UIDesign.h" />
+    <ClInclude Include="..\Control\IOperator.h" />
+    <ClInclude Include="..\Control\popwincode.h" />
+    <ClInclude Include="..\Control\popwincodelist.h" />
+    <ClInclude Include="..\Control\TCheckbox.h" />
+    <ClInclude Include="..\Control\TCombox.h" />
+    <ClInclude Include="..\Control\TComboxList.h" />
+    <ClInclude Include="..\Control\TDateTime.h" />
+    <ClInclude Include="..\Control\TEdit.h" />
+    <ClInclude Include="..\Control\TListView.h" />
+    <ClInclude Include="..\Control\TLockBtn.h" />
+    <ClInclude Include="..\Control\TMessageBox.h" />
+    <ClInclude Include="..\Control\TOrderButton.h" />
+    <ClInclude Include="..\Control\TPinEdit.h" />
+    <ClInclude Include="..\Control\TPopupWnd.h" />
+    <ClInclude Include="..\Control\TStatic.h" />
+    <ClInclude Include="..\Control\TStaticButton.h" />
+    <ClInclude Include="..\Control\VirtualWnd.h" />
+    <ClInclude Include="..\Export\Export.h" />
+    <ClInclude Include="..\LoadRC\AnsicUnicode.h" />
+    <ClInclude Include="..\LoadRC\CharCodes.h" />
+    <ClInclude Include="..\LoadRC\def_lang.h" />
+    <ClInclude Include="..\LoadRC\load_rc.h" />
+    <ClInclude Include="..\Tradespi\trade_spi.h" />
+    <ClInclude Include="..\Tradespi\trade_spi_ex.h" />
+    <ClInclude Include="..\Tradespi\trade_spi_switch.h" />
+    <ClInclude Include="..\Tradespi\_trade_spi_switch.h" />
+    <ClInclude Include="MBLSpiHandler.h" />
+    <ClInclude Include="ColumnConfigView.h" />
+    <ClInclude Include="DeepQuoteData.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="TSHFEDeepQuoteFrm.h" />
+    <ClInclude Include="TSHFEDeepQuoteLoginFrm.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="MBLdll.lib" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

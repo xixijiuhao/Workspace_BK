@@ -1,0 +1,17 @@
+﻿  AnsicUnicode.cpp
+  TradeQuoteString.cpp
+  CapitalRiskMgt.cpp
+  CapitalRiskMgtPlugin.cpp
+  CapitalRiskMgtWnd.cpp
+g:\02. codelibrary\epolestar_plugins_99\capitalriskmgt\capitalriskmgt\main\capitalriskmgtwnd.cpp(37): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+g:\02. codelibrary\epolestar_plugins_99\capitalriskmgt\capitalriskmgt\main\capitalriskmgtwnd.cpp(651): warning C4018: “>”: 有符号/无符号不匹配
+  TMemDC.cpp
+  UIDesign.cpp
+  CxCombox.cpp
+  CxEdit.cpp
+  CxSubClassWnd.cpp
+  TCheckbox.cpp
+  TEdit.cpp
+  TStatic.cpp
+  正在生成代码...
+  CapitalRiskMgt.vcxproj -> G:\02. codelibrary\Epolestar_plugins_99\CapitalRiskMgt\CapitalRiskMgt\..\..\Debug_28-2\plugins\CapitalRiskMgt\CapitalRiskMgt.dll
